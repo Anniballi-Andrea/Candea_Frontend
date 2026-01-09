@@ -1,8 +1,6 @@
-export default function ProductDetail() {
+export default function Contacts() {
     return (
-
         <>
-
 
         </>
     )
