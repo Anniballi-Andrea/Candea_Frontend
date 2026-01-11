@@ -1,69 +1,63 @@
 import { Link } from "react-router-dom";
 
 export default function Header() {
-
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
             <div className="container">
 
-                {/* Logo / Brand */}
-                <Link className="navbar-brand fw-bold" to="/">
-                    Candea
+                <Link className="navbar-brand fw-bold fs-3" to="/" style={{ letterSpacing: '1px' }}>
+                    CANDEA
                 </Link>
 
-                {/* Toggle mobile */}
                 <button
-                    className="navbar-toggler"
+                    className="navbar-toggler border-0"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#mainNavbar"
-                    aria-controls="mainNavbar"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
                 >
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <form className="d-flex my-3 ml-5" style={{ maxWidth: "400px", width: "100%" }}>
-                    <input
-                        className="form-control mx-2"
-                        type="search"
-                        placeholder="Cerca candele..."
-                    />
-                    <button className="btn btn-dark" type="submit">
-                        Cerca
-                    </button>
-                </form>
-
                 <div className="collapse navbar-collapse" id="mainNavbar">
-                    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">
-                                Products
-                            </Link>
+                    <form className="d-flex mx-auto my-3 my-lg-0" style={{ maxWidth: "400px", width: "100%" }}>
+                        <div className="input-group">
+                            <input
+                                className="form-control border-end-0"
+                                type="search"
+                                placeholder="Cerca candele..."
+                            />
+                            <button className="btn btn-outline-secondary border-start-0" type="submit">
+                                <i className="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <ul className="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
+                        <li className="nav-item px-2">
+                            <Link className="nav-link text-uppercase small fw-semibold" to="/">Products</Link>
+                        </li>
+                        <li className="nav-item px-2">
+                            <Link className="nav-link text-uppercase small fw-semibold" to="/">About Us</Link>
+                        </li>
+                        <li className="nav-item px-2">
+                            <Link className="nav-link text-uppercase small fw-semibold" to="/">FAQ</Link>
+                        </li>
+                        <li className="nav-item px-2">
+                            <Link className="nav-link text-uppercase small fw-semibold" to="/">Contacts</Link>
                         </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">
-                                About Us
-                            </Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">
-                                FAQ
-                            </Link>
-                        </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/">
-                                Contacts
+                        <li className="nav-item ms-lg-3">
+                            <Link className="nav-link position-relative d-inline-block" to="/cart">
+                                <i className="bi bi-bag fs-4 text-dark"></i>
+                                {/* Badge numero articoli */}
+                                <span className="position-absolute  start-100 translate-middle badge rounded-pill bg-dark" style={{ fontSize: '0.6rem' }}>
+                                    0
+                                </span>
                             </Link>
                         </li>
                     </ul>
                 </div>
-
             </div>
         </nav>
-    )
+    );
 }
