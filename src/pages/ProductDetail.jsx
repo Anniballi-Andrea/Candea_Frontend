@@ -63,12 +63,6 @@ export default function ProductDetail() {
                     <p className="text-muted fs-5">{product.brand}</p>
                     <p className="my-4 text-secondary lh-lg">{product.description}</p>
 
-                    <div className="d-flex gap-2 my-4">
-                        <button className="btn btn-dark rounded-0 px-4 py-2">Taglia S</button>
-                        <button className="btn btn-dark rounded-0 px-4 py-2">Taglia M</button>
-                        <button className="btn btn-dark rounded-0 px-4 py-2">Taglia L</button>
-                    </div>
-
                     <div className="d-flex align-items-center gap-4 my-5">
                         <span className="fw-bold text-uppercase small">Quantità</span>
                         <div className="d-flex border align-items-center">

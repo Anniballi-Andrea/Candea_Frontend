@@ -19,7 +19,7 @@ export default function SingleCardProduct({ product }) {
                     <div className="p-3">
                         <img
                             src={imageUrl}
-                            className="card-img-top object-fit-cover w-100"
+                            className="card-img-top object-fit-cover w-80"
                             alt={title}
                             style={{ height: '250px', backgroundColor: '#fff' }}
                         />
