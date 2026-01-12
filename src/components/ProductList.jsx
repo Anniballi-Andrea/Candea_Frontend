@@ -1,6 +1,6 @@
 import SingleCardProduct from './SingleCardProduct';
 
-export default function ProductList() {
+export default function ProductList({ products }) {
     // I dati devono essere qui!
     const candelePopolari = [
         {
@@ -22,25 +22,11 @@ export default function ProductList() {
     return (
         <>
             <div className="container my-5">
-                <h2 className="fw-bold mb-4">Candele più richieste</h2>
+                <h2 className="fw-bold mb-4">Lista candele</h2>
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
                     {/* Controlliamo che l'array esista prima di mapparlo */}
-                    {candelePopolari && candelePopolari.length > 0 ? (
-                        candelePopolari.map(prod => (
-                            <SingleCardProduct key={prod.id} product={prod} />
-                        ))
-                    ) : (
-                        <p>Nessun prodotto trovato.</p>
-                    )}
-                </div>
-            </div>
-
-            <div className="container my-5">
-                <h2 className="fw-bold mb-4">Candele in sale</h2>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-                    {/* Controlliamo che l'array esista prima di mapparlo */}
-                    {candelePopolari && candelePopolari.length > 0 ? (
-                        candelePopolari.map(prod => (
+                    {products && products.length > 0 ? (
+                        products.map(prod => (
                             <SingleCardProduct key={prod.id} product={prod} />
                         ))
                     ) : (
