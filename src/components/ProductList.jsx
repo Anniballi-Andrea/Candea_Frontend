@@ -23,7 +23,7 @@ export default function ProductList() {
         <>
             <div className="container my-5">
                 <h2 className="fw-bold mb-4">Candele più richieste</h2>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
                     {/* Controlliamo che l'array esista prima di mapparlo */}
                     {candelePopolari && candelePopolari.length > 0 ? (
                         candelePopolari.map(prod => (
@@ -37,7 +37,7 @@ export default function ProductList() {
 
             <div className="container my-5">
                 <h2 className="fw-bold mb-4">Candele in sale</h2>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
                     {/* Controlliamo che l'array esista prima di mapparlo */}
                     {candelePopolari && candelePopolari.length > 0 ? (
                         candelePopolari.map(prod => (
