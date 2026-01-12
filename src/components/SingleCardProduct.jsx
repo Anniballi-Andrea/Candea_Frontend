@@ -10,7 +10,7 @@ export default function SingleCardProduct({ product }) {
 
                     <div className="p-3">
                         <img
-                            src={product.img}
+                            src={`http://localhost:3000/${product.img}`}
                             className="card-img-top object-fit-cover w-80"
                             alt={product.name}
                             style={{ height: '250px', backgroundColor: '#fff' }}
