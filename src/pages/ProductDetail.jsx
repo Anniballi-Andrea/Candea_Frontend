@@ -1,94 +1,88 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function ProductDetail() {
-    const { id } = useParams();
-    const [product, setProduct] = useState(null);
+    const { slug } = useParams();
 
-    // AGGIUNTA: Stato per la quantità e il prezzo
+    const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [displayPrice, setDisplayPrice] = useState(0);
 
     useEffect(() => {
-        const fakeFetch = {
-            id: id,
-            title: "Candela Artigianale " + id,
-            brand: "Candle Shop",
-            price: "15.00", // Prezzo base
-            description: "Questa candela è stata creata con cera di soia naturale e oli essenziali puri, importata direttamente dal nostro database.",
-            images: [
-                "https://via.placeholder.com/600",
-                "https://via.placeholder.com/150",
-                "https://via.placeholder.com/150",
-                "https://via.placeholder.com/150"
-            ]
-        };
-        setProduct(fakeFetch);
-        setDisplayPrice(parseFloat(fakeFetch.price)); // Inizializza il prezzo
-    }, [id]);
+        axios
+            .get(`http://localhost:3000/api/products/${slug}`)
+            .then(response => {
+                setProduct(response.data);
+                setDisplayPrice(parseFloat(response.data.initial_price));
+            })
+            .catch(error => {
+                console.error("Errore nel recupero del prodotto:", error);
+            });
+    }, [slug]);
 
-    // AGGIUNTA: Funzioni per incrementare e decrementare
     const increaseQty = () => {
         const newQty = quantity + 1;
         setQuantity(newQty);
-        setDisplayPrice(newQty * parseFloat(product.price));
+        setDisplayPrice(newQty * parseFloat(product.initial_price));
     };
 
     const decreaseQty = () => {
         if (quantity > 1) {
             const newQty = quantity - 1;
             setQuantity(newQty);
-            setDisplayPrice(newQty * parseFloat(product.price));
+            setDisplayPrice(newQty * parseFloat(product.initial_price));
         }
     };
 
-    if (!product) return <div className="container p-5 text-center">Caricamento...</div>;
+    if (!product) {
+        return (
+            <div className="container p-5 text-center">
+                Caricamento...
+            </div>
+        );
+    }
 
     return (
         <div className="container my-5 py-5">
             <div className="row g-5">
                 <div className="col-md-6">
-                    <div className="ratio ratio-1x1 bg-white mb-3 border border-light shadow-sm">
-                        <img src={product.images[0]} alt={product.title} className="object-fit-contain p-4" />
+                    <div className="ratio ratio-1x1 bg-white mb-3 border shadow-sm">
+                        <img
+                            src={`http://localhost:3000/${product.img}`}
+                            alt={product.title}
+                            className="object-fit-contain p-4"
+                        />
                     </div>
-                    <div className="d-flex gap-2 overflow-auto pb-2">
-                        {product.images.map((img, index) => (
-                            <img key={index} src={img} width="80" height="80" className="img-thumbnail cursor-pointer" alt="thumb" />
-                        ))}
-                    </div>
+
                 </div>
 
                 <div className="col-md-6">
-                    <h1 className="display-5 fw-bold">{product.title}</h1>
-                    <p className="text-muted fs-5">{product.brand}</p>
-                    <p className="my-4 text-secondary lh-lg">{product.description}</p>
+                    <h1 className="display-5 fw-bold">{product.name}</h1>
+                    <p className="text-muted fs-5">{product.dimensions}</p>
+                    <p className="my-4 text-secondary">{product.description}</p>
+                    <p className="my-4 text-secondary">Sentori di {product.scent}</p>
+                    <p className="my-4 text-secondary">Durata: {product.burn_time}</p>
+                    <p className="my-4 text-secondary">Colore: {product.color}</p>
+                    <hr />
+                    <span className="fw-bold text-uppercase small">Disponibili {product.available_quantity}PZ</span>
 
                     <div className="d-flex align-items-center gap-4 my-5">
                         <span className="fw-bold text-uppercase small">Quantità</span>
+
                         <div className="d-flex border align-items-center">
-                            {/* BOTTONE MENO collegato alla funzione */}
-                            <button
-                                onClick={decreaseQty}
-                                className="btn btn-link text-dark text-decoration-none px-3 fw-bold"
-                            > - </button>
-
-                            {/* NUMERO QUANTITÀ dinamico */}
-                            <span className="px-3 py-2 border-start border-end">
-                                {quantity}
-                            </span>
-
-                            {/* BOTTONE PIÙ collegato alla funzione */}
-                            <button
-                                onClick={increaseQty}
-                                className="btn btn-link text-dark text-decoration-none px-3 fw-bold"
-                            > + </button>
+                            <button onClick={decreaseQty} className="btn px-3">-</button>
+                            <span className="px-3">{quantity}</span>
+                            <button onClick={increaseQty} className="btn px-3">+</button>
                         </div>
                     </div>
 
-                    <div className="d-flex justify-content-between align-items-end mt-5">
-                        {/* PREZZO AGGIORNATO (con toFixed(2) per i decimali) */}
-                        <h2 className="display-6 fw-light text-secondary mb-0">€{displayPrice.toFixed(2)}</h2>
-                        <button className="btn btn-dark btn-lg rounded-0 px-5 py-3 text-uppercase fw-bold">
+                    <div className="d-flex justify-content-between align-items-end">
+                        <h2 className="display-6 fw-light">
+                            €{displayPrice.toFixed(2)}
+                        </h2>
+
+                        <button className="btn btn-dark btn-lg">
                             Aggiungi
                         </button>
                     </div>
