@@ -7,7 +7,7 @@ export default function Home() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/products")
+        axios.get("http://localhost:3000/api/products")
             .then(response => { setProducts(response.data); })
             .catch(error => { console.error("Errore nel recupero dei prodotti:", error) })
     }, []);
@@ -15,7 +15,7 @@ export default function Home() {
     return (
         <>
             <Bunner />
-            <ProductList />
+            <ProductList products={products} />
         </>
     )
 }

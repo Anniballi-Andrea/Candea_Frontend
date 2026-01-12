@@ -34,7 +34,7 @@ export default function SingleCardProduct({ product }) {
 
                         <div className="mt-4 text-end">
                             <span className="h4 fw-light text-secondary">
-                                €{products.initialPrice}
+                                €{product.initialPrice}
                             </span>
                         </div>
                     </div>
