@@ -1,15 +1,6 @@
 import { Link } from "react-router-dom";
-import products from "../assets/candele";
 
 export default function SingleCardProduct({ product }) {
-    // Valori di default se product è undefined
-    const {
-        id = 0,
-        name = "Prodotto",
-        category = "Categoria",
-        price = "0.00",
-        img = "https://via.placeholder.com/300x400"
-    } = product || {};
 
     return (
         <div className="col">
@@ -34,7 +25,7 @@ export default function SingleCardProduct({ product }) {
 
                         <div className="mt-4 text-end">
                             <span className="h4 fw-light text-secondary">
-                                €{product.initialPrice}
+                                €{product.initial_price}
                             </span>
                         </div>
                     </div>
