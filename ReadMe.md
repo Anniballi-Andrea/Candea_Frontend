@@ -20,4 +20,5 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 
-add bootstrap e bootstrap-icons
+add bootstrap e bootstrap-icons install
+add axios install
