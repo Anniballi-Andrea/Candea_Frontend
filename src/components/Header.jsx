@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import products from "../assets/candele.js";
 
 export default function Header() {
+    const categories = products.map(prod => prod.category).filter((cat, index, self) => self.indexOf(cat) === index);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
             <div className="container">
@@ -35,6 +38,26 @@ export default function Header() {
                     <ul className="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
                         <li className="nav-item px-2">
                             <Link className="nav-link text-uppercase small fw-semibold" to="/">Products</Link>
+                        </li>
+                        <li className="nav-item px-2">
+                            <select
+                                className="form-select form-select-sm text-uppercase small fw-semibold"
+                                defaultValue=""
+                                style={{ minWidth: "120px" }}
+                                onChange={(e) => {
+                                    // Redirect alla pagina /category
+                                    window.location.href = "/products/category"
+                                }}>
+                                <option value="" disabled>
+                                    Category
+                                </option>
+
+                                {categories.map((cat) => (
+                                    <option key={cat} value={cat}>
+                                        {cat}
+                                    </option>
+                                ))}
+                            </select>
                         </li>
                         <li className="nav-item px-2">
                             <Link className="nav-link text-uppercase small fw-semibold" to="/">About Us</Link>

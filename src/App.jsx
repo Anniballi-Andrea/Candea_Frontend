@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./layout/DefaultLayout";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
+import CategoryProduct from "./pages/CategoryProduct";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Route path="/" element={<Home />} />
           {/* Definiamo la rotta con la 's' per i prodotti */}
           <Route path="/products/:id" element={<ProductDetail />} />
+          <Route path="/products/category" element={<CategoryProduct />} />
         </Route>
       </Routes>
     </BrowserRouter>
