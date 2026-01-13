@@ -1,6 +1,7 @@
 import SingleCardProduct from './SingleCardProduct';
 
-export default function ProductList({ products }) {
+
+export default function ProductList({ products, bestSellers }) {
     const latestProducts = products && products.length > 0
         ? [...products]
             .filter(p => p.created_at) // sicurezza
@@ -25,6 +26,17 @@ export default function ProductList({ products }) {
                     )}
                 </div>
             </div>
+            <div className="container my-5">
+                <h2 className="fw-bold mb-4">Più venduti</h2>
+
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+                    {bestSellers && bestSellers.map((prod, i) => (
+                        i < 4 && <SingleCardProduct product={prod} />
+                    ))}
+
+                </div>
+            </div>
+
             <div className="container my-5">
                 <h2 className="fw-bold mb-4">Lista candele</h2>
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
