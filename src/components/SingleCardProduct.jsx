@@ -29,7 +29,7 @@ export default function SingleCardProduct({ product }) {
 
                     <div className="product-body">
                         <div>
-                            <h5 className="product-title">{product.name}</h5>
+                            <h5 className="product-title">{capitalize(product.name)}</h5>
                             <p className="product-categories">{categoryList}</p>
                         </div>
 
