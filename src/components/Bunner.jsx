@@ -3,19 +3,19 @@ import { useState } from "react";
 const slides = [
     {
         id: 1,
-        title: "Essenza d'Inverno",
+        title: "Respiro d'inverno",
         subtitle: "Candele artigianali con note di cannella e pino.",
         image: "/candelaInvernale.png"
     },
     {
         id: 2,
-        title: "Sogno di Primavera",
+        title: "soffio di primavera",
         subtitle: "Note floreali e freschezza per rinascere con la natura.",
         image: "/candelaPrimavera.png"
     },
     {
         id: 3,
-        title: "Calore d'Estate",
+        title: "Profumo di vacanza",
         subtitle: "Agrumi e brezza marina per le tue serate all'aperto.",
         image: "/candelaEstate.png"
     },
