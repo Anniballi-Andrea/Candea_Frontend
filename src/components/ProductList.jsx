@@ -1,23 +1,6 @@
 import SingleCardProduct from './SingleCardProduct';
 
 export default function ProductList({ products }) {
-    // I dati devono essere qui!
-    const candelePopolari = [
-        {
-            id: 1,
-            title: "Candela Lavanda",
-            category: "Rilassante",
-            price: "15.00",
-            imageUrl: "https://via.placeholder.com/300x400"
-        },
-        {
-            id: 2,
-            title: "Candela Agrumi",
-            category: "Energizzante",
-            price: "18.00",
-            imageUrl: "https://via.placeholder.com/300x400"
-        }
-    ];
     const latestProducts = products && products.length > 0
         ? [...products]
             .filter(p => p.created_at) // sicurezza

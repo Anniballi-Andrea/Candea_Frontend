@@ -1,9 +1,23 @@
+import ProductList from "../components/ProductList";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 export default function CategoryProduct() {
+
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/products?category")
+            .then(response => { setProducts(response.data); })
+            .catch(error => { console.error("Errore nel recupero dei prodotti:", error) })
+    }, []);
+
 
     return (
         <div className="container p-5 text-center">
             <h1>Category Product Page</h1>
             <p>Qui verranno mostrati i prodotti filtrati per categoria.</p>
+            <ProductList products={products} />
         </div>
     );
 }
