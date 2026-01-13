@@ -153,36 +153,90 @@
     border-radius: 10px;
 }
 
-/* Nasconde la scrollbar ma mantiene la funzionalità */
-.carousel-wrapper {
+
+
+/* layout colonna */
+.product-col {
+    height: 100%;
+}
+
+/* link */
+.product-link {
+    text-decoration: none;
+    display: block;
+    height: 100%;
+    color: inherit;
+}
+
+/* card */
+.product-card {
+    height: 100%;
+    background-color: #BFE3C0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    background-color: #A9D6AB;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* immagine */
+.product-image-wrapper {
+    padding: 16px;
+    background-color: #BFE3C0;
+}
+
+.product-image {
     width: 100%;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE 10+ */
+    height: 250px;
+    object-fit: cover;
+    background-color: #F8FFF9;
+    border-radius: 8px;
 }
 
-.carousel-wrapper::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, Opera */
-}
-
-.carousel-track {
+/* body */
+.product-body {
+    padding: 20px;
     display: flex;
-    gap: 1.5rem;
-    /* Spazio tra i prodotti (g-4 di Bootstrap) */
-    scroll-snap-type: x mandatory;
-    /* Effetto "calamita" */
-    padding-bottom: 10px;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.carousel-item {
-    flex: 0 0 85%;
-    /* Su mobile mostra quasi tutta la card */
-    scroll-snap-align: start;
+/* titolo */
+.product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #1F3D2B;
 }
+
+/* categorie */
+.product-categories {
+    font-size: 0.85rem;
+    color: #4F6F5A;
+}
+
+/* prezzo */
+.product-price {
+    margin-top: 16px;
+    text-align: right;
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: #2E6B3F;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    background-color: #fff;
+    border-radius: 6px;
+}
+
 
 /* Media query per Tablet e Desktop */
 @media (min-width: 576px) {

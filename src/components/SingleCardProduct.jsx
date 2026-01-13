@@ -3,41 +3,41 @@ import { Link } from "react-router-dom";
 export default function SingleCardProduct({ product }) {
 
     function capitalize(str) {
-        if (!str) {
-            return "";
-        }
+        if (!str) return "";
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    const categoryList = product.categories.map(cat => capitalize(cat.name)).join(', ')
+    const categoryList = product.categories
+        .map(cat => capitalize(cat.name))
+        .join(', ');
 
     return (
-        <div className="col">
-            {/* Il Link punta a /products/ID come definito in App.jsx */}
-            <Link to={`/products/${product.slug}`} className="text-decoration-none h-100 d-block">
-                <div className="card h-100 border-0 shadow-sm position-relative overflow-hidden" style={{ backgroundColor: '#e0e0e0' }}>
+        <div className="product-col">
+            <Link
+                to={`/products/${product.slug}`}
+                className="product-link"
+            >
+                <div className="product-card">
 
-                    <div className="p-3">
+                    <div className="product-image-wrapper">
                         <img
                             src={`http://localhost:3000/${product.img}`}
-                            className="card-img-top object-fit-cover w-80"
                             alt={product.name}
-                            style={{ height: '250px', backgroundColor: '#fff' }}
+                            className="product-image"
                         />
                     </div>
 
-                    <div className="card-body d-flex flex-column justify-content-between p-4">
+                    <div className="product-body">
                         <div>
-                            <h5 className="card-title fw-bold mb-1 text-dark">{product.name}</h5>
-                            <p className="card-text text-muted small">{categoryList}</p>
+                            <h5 className="product-title">{product.name}</h5>
+                            <p className="product-categories">{categoryList}</p>
                         </div>
 
-                        <div className="mt-4 text-end">
-                            <span className="h4 fw-light text-secondary">
-                                €{product.initial_price}
-                            </span>
+                        <div className="product-price">
+                            €{product.initial_price}
                         </div>
                     </div>
+
                 </div>
             </Link>
         </div>
