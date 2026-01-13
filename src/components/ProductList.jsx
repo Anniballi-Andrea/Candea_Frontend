@@ -14,6 +14,17 @@ export default function ProductList({ products, bestSellers }) {
     return (
         <>
             <div className="container my-5">
+                <h2 className="fw-bold mb-4">Più venduti</h2>
+
+                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+                    {bestSellers && bestSellers.map((prod, i) => (
+                        i < 4 && <SingleCardProduct key={i} product={prod} />
+                    ))}
+
+                </div>
+            </div>
+
+            <div className="container my-5">
                 <h2 className="fw-bold mb-4">Ultimi arrivi</h2>
 
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
@@ -26,30 +37,7 @@ export default function ProductList({ products, bestSellers }) {
                     )}
                 </div>
             </div>
-            <div className="container my-5">
-                <h2 className="fw-bold mb-4">Più venduti</h2>
 
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-                    {bestSellers && bestSellers.map((prod, i) => (
-                        i < 4 && <SingleCardProduct key={i} product={prod} />
-                    ))}
-
-                </div>
-            </div>
-
-            <div className="container my-5">
-                <h2 className="fw-bold mb-4">Lista candele</h2>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-                    {/* Controlliamo che l'array esista prima di mapparlo */}
-                    {products && products.length > 0 ? (
-                        products.map(prod => (
-                            <SingleCardProduct key={prod.id} product={prod} />
-                        ))
-                    ) : (
-                        <p>Nessun prodotto trovato.</p>
-                    )}
-                </div>
-            </div>
         </>
 
     );
