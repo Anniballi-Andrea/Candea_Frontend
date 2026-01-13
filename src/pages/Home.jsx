@@ -7,7 +7,7 @@ export default function Home() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/products")
+        axios.get("http://localhost:3000/api/products?category")
             .then(response => { setProducts(response.data); })
             .catch(error => { console.error("Errore nel recupero dei prodotti:", error) })
     }, []);

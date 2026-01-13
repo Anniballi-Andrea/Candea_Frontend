@@ -1,9 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
-import products from "../assets/candele.js";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 export default function Header() {
-    const categories = products.map(prod => prod.category).filter((cat, index, self) => self.indexOf(cat) === index);
 
+    const navigate = useNavigate();
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/categories")
+            .then(response => { setCategories(response.data); })
+            .catch(error => { console.error("Errore nel recupero delle categorie:", error) })
+    }, []);
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
             <div className="container">
@@ -45,16 +53,16 @@ export default function Header() {
                                 defaultValue=""
                                 style={{ minWidth: "120px" }}
                                 onChange={(e) => {
-                                    // Redirect alla pagina /category
-                                    window.location.href = "/products/category"
+                                    const selectedCategory = e.target.value;
+                                    navigate(`/products?category=${selectedCategory}`);
                                 }}>
                                 <option value="" disabled>
-                                    Category
+                                    Categories
                                 </option>
 
                                 {categories.map((cat) => (
-                                    <option key={cat} value={cat}>
-                                        {cat}
+                                    <option key={cat.id} value={cat.name}>
+                                        {cat.name}
                                     </option>
                                 ))}
                             </select>

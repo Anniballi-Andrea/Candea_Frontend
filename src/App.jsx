@@ -12,6 +12,7 @@ function App() {
           <Route path="/" element={<Home />} />
           {/* Definiamo la rotta con la 's' per i prodotti */}
           <Route path="/products/:slug" element={<ProductDetail />} />
+          <Route path="/products" element={<CategoryProduct />} />
           <Route path="/products/category" element={<CategoryProduct />} />
         </Route>
       </Routes>
