@@ -1,17 +1,22 @@
 import ProductList from "../components/ProductList";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 export default function CategoryProduct() {
 
     const [products, setProducts] = useState([]);
+    const [searchParams] = useSearchParams();
+
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/products?category")
-            .then(response => { setProducts(response.data); })
-            .catch(error => { console.error("Errore nel recupero dei prodotti:", error) })
-    }, []);
-
+        const category = searchParams.get("category");
+        if (category) {
+            axios.get(`http://localhost:3000/api/products?category=${category}`)
+                .then(response => { setProducts(response.data); })
+                .catch(error => { console.error("Errore nel recupero dei prodotti:", error) })
+        }
+    }, [searchParams]);
 
     return (
         <div className="container p-5 text-center">
