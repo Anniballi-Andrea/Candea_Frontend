@@ -1,29 +1,34 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const slides = [
     {
         id: 1,
         title: "Respiro d'inverno",
         subtitle: "Candele artigianali con note di cannella e pino.",
-        image: "/candelaInvernale.png"
+        image: "/candelaInvernale.png",
+        categoria: "inverno"
     },
     {
         id: 2,
         title: "soffio di primavera",
         subtitle: "Note floreali e freschezza per rinascere con la natura.",
-        image: "/candelaPrimavera.png"
+        image: "/candelaPrimavera.png",
+        categoria: "primavera"
     },
     {
         id: 3,
         title: "Profumo di vacanza",
         subtitle: "Agrumi e brezza marina per le tue serate all'aperto.",
-        image: "/candelaEstate.png"
+        image: "/candelaEstate.png",
+        categoria: "estate"
     },
     {
         id: 4,
         title: "Incanto d'Autunno",
         subtitle: "Profumi di zucca, spezie e foglie cadenti.",
-        image: "/candelaAutunno.png"
+        image: "/candelaAutunno.png",
+        categoria: "autunno"
     },
 ];
 
@@ -37,6 +42,8 @@ export default function InfiniteSlider() {
 
     const [currentIndex, setCurrentIndex] = useState(1);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const navigate = useNavigate();
+
 
     const handleNext = () => {
         if (isTransitioning) return;
@@ -77,7 +84,11 @@ export default function InfiniteSlider() {
                         <div className="slide-content">
                             <h1 className="slide-title">{slide.title}</h1>
                             <p className="slide-subtitle">{slide.subtitle}</p>
-                            <button className="banner-button">Scopri la collezione</button>
+                            <button
+                                className="banner-button"
+                                onClick={() => navigate(`/products?category=${slide.categoria}`)}>
+                                Scopri la collezione
+                            </button>
                         </div>
                     </div>
                 ))}
