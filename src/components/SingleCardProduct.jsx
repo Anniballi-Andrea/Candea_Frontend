@@ -2,7 +2,14 @@ import { Link } from "react-router-dom";
 
 export default function SingleCardProduct({ product }) {
 
-    const categoryList = product.categories.map(cat => cat.name).join(', ')
+    function capitalize(str) {
+        if (!str) {
+            return "";
+        }
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    const categoryList = product.categories.map(cat => capitalize(cat.name)).join(', ')
 
     return (
         <div className="col">
@@ -22,7 +29,7 @@ export default function SingleCardProduct({ product }) {
                     <div className="card-body d-flex flex-column justify-content-between p-4">
                         <div>
                             <h5 className="card-title fw-bold mb-1 text-dark">{product.name}</h5>
-                            <p className="card-text text-muted small text-uppercase">{categoryList}</p>
+                            <p className="card-text text-muted small">{categoryList}</p>
                         </div>
 
                         <div className="mt-4 text-end">
