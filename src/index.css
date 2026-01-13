@@ -8,85 +8,149 @@
     padding: 10px;
 }
 
-/* Contenitore Principale */
-.banner-container {
+/* Struttura Principale */
+.slider-container {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 480px;
+    /* Banner a tutto schermo */
+    overflow: hidden;
+    background-color: #000;
+}
+
+.slider-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    height: 480px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
-/* Gestione Immagine di Sfondo */
-.banner-background {
-    position: absolute;
-    inset: 0;
-    /* Copre tutto il contenitore */
-    z-index: 0;
-}
-
-.banner-image {
+.slide-image {
     width: 100%;
-    height: 100%;
+    height: 480px;
     object-fit: cover;
-    opacity: 0.8;
+    pointer-events: none;
 }
 
-.banner-overlay {
+.slide-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(23, 48, 39, 0.45);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
 }
 
-/* Contenuto (Testo e Bottone) */
-.banner-content {
-    position: relative;
-    z-index: 10;
+/* Contenuti Testuali */
+.slide-content {
+    position: absolute;
     text-align: center;
-    max-width: 600px;
-    padding: 0 20px;
     color: white;
+    max-width: 800px;
+    padding: 0 20px;
+    z-index: 5;
 }
 
-.banner-title {
-    font-family: serif;
-    font-size: 2rem;
-    /* Circa 32px */
-    font-weight: bold;
-    margin: 0;
-    line-height: 1.2;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.slide-title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.banner-subtitle {
-    font-size: 1rem;
-    color: #e5e7eb;
-    margin-top: 8px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+.slide-subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    opacity: 0.9;
 }
 
-/* Bottone */
 .banner-button {
-    margin-top: 16px;
-    padding: 10px 24px;
-    background-color: white;
+    background: white;
     color: black;
     border: none;
-    border-radius: 2px;
+    padding: 15px 35px;
+    font-size: 1rem;
     font-weight: 600;
-    text-transform: uppercase;
-    font-size: 10px;
-    letter-spacing: 0.2em;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
 }
 
 .banner-button:hover {
-    background-color: #f3f4f6;
-    transform: translateY(-1px);
+    background: #e0e0e0;
+    transform: scale(1.05);
+}
+
+/* Navigazione (Frecce) */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn .arrow {
+    font-size: 2.5rem;
+    line-height: 0;
+    margin-bottom: 5px;
+}
+
+.prev {
+    left: 30px;
+}
+
+.next {
+    right: 30px;
+}
+
+/* Indicatori (Dots) */
+.dots-container {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.dot.active {
+    background: white;
+    width: 30px;
+    /* Effetto pillola per la slide attiva */
+    border-radius: 10px;
 }
 
 /* Responsive: Nasconde il sottotitolo su schermi molto piccoli (opzionale) */
