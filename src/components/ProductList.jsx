@@ -1,9 +1,25 @@
 import SingleCardProduct from './SingleCardProduct';
 
 export default function ProductList({ products }) {
-    const latestProducts = products && products.length > 0
+    // I dati devono essere qui!
+    const candelePopolari = [
+        {
+            id: 1,
+            title: "Candela Lavanda",
+            category: "Rilassante",
+            price: "15.00",
+            imageUrl: "https://via.placeholder.com/300x400"
+        },
+        {
+            id: 2,
+            title: "Candela Agrumi",
+            category: "Energizzante",
+            price: "18.00",
+            imageUrl: "https://via.placeholder.com/300x400"
+        }
+    ];
+    const latestProducts = products
         ? [...products]
-            .filter(p => p.created_at) // sicurezza
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
             .slice(0, 4)
         : [];
@@ -12,14 +28,21 @@ export default function ProductList({ products }) {
             <div className="container my-5">
                 <h2 className="fw-bold mb-4">Ultimi arrivi</h2>
 
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-                    {latestProducts.length > 0 ? (
-                        latestProducts.map(prod => (
-                            <SingleCardProduct key={prod.id} product={prod} />
-                        ))
-                    ) : (
-                        <p>Nessun prodotto trovato.</p>
-                    )}
+                {/* Contenitore carosello */}
+                <div className="carousel-wrapper">
+                    <div className="carousel-track">
+                        {products && products.length > 0 ? (
+                            products.map(prod, i => ({
+                                i< 5 &&
+                                    <div className="carousel-item" key={prod.id}>
+                                        <SingleCardProduct product={prod} />
+                                    </div>
+                            }
+                            ))
+                        ) : (
+                            <p>Nessun prodotto trovato.</p>
+                        )}
+                    </div>
                 </div>
             </div>
             <div className="container my-5">

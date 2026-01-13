@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function SingleCardProduct({ product }) {
 
+    const categoryList = product.categories.map(cat => cat.name).join(', ')
+
     return (
         <div className="col">
             {/* Il Link punta a /products/ID come definito in App.jsx */}
@@ -20,7 +22,7 @@ export default function SingleCardProduct({ product }) {
                     <div className="card-body d-flex flex-column justify-content-between p-4">
                         <div>
                             <h5 className="card-title fw-bold mb-1 text-dark">{product.name}</h5>
-                            <p className="card-text text-muted small text-uppercase">CATEGORIA</p>
+                            <p className="card-text text-muted small text-uppercase">{categoryList}</p>
                         </div>
 
                         <div className="mt-4 text-end">
