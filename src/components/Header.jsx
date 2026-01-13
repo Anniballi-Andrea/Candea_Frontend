@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 export default function Header() {
 
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function Header() {
             <div className="container">
 
                 <Link className="navbar-brand fw-bold fs-3" to="/" style={{ letterSpacing: '1px' }}>
-                    CANDEA
+                    <img className="img_logo" src="/logo_scrittura.png" alt="" />
                 </Link>
 
                 <button
