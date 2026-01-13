@@ -1,100 +1,67 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
 
     const navigate = useNavigate();
-
     const [categories, setCategories] = useState([]);
     const [selected, setSelected] = useState("");
 
-
     useEffect(() => {
         axios.get("http://localhost:3000/api/categories")
-            .then(response => { setCategories(response.data); })
-            .catch(error => { console.error("Errore nel recupero delle categorie:", error) })
+            .then(res => setCategories(res.data))
+            .catch(err => console.error("Errore categorie:", err));
     }, []);
-    return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-            <div className="container">
 
-                <Link className="navbar-brand fw-bold fs-3" to="/" style={{ letterSpacing: '1px' }}>
-                    <img className="img_logo" src="/logo_scrittura.png" alt="" />
+    return (
+        <header className="header">
+            <div className="header-container">
+
+                {/* LOGO */}
+                <Link to="/" className="header-logo">
+                    <img src="/logo_scrittura.png" alt="Logo" />
                 </Link>
 
-                <button
-                    className="navbar-toggler border-0"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#mainNavbar"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                {/* SEARCH */}
+                <form className="header-search">
+                    <input type="search" placeholder="Cerca candele..." />
+                    <button type="submit">
+                        <i className="bi bi-search"></i>
+                    </button>
+                </form>
 
-                <div className="collapse navbar-collapse" id="mainNavbar">
-                    <form className="d-flex mx-auto my-3 my-lg-0" style={{ maxWidth: "400px", width: "100%" }}>
-                        <div className="input-group">
-                            <input
-                                className="form-control border-end-0"
-                                type="search"
-                                placeholder="Cerca candele..."
-                            />
-                            <button className="btn btn-outline-secondary border-start-0" type="submit">
-                                <i className="bi bi-search"></i>
-                            </button>
-                        </div>
-                    </form>
+                {/* NAV */}
+                <nav className="header-nav">
+                    <Link to="/">Products</Link>
 
-                    <ul className="navbar-nav mb-2 mb-lg-0 align-items-lg-center">
-                        <li className="nav-item px-2">
-                            <Link className="nav-link text-uppercase small fw-semibold" to="/">Products</Link>
-                        </li>
-                        <li className="nav-item px-2">
-                            <select
-                                className="form-select form-select-sm text-uppercase small fw-semibold"
-                                value={selected}
-                                style={{ minWidth: "120px" }}
-                                onChange={(e) => {
-                                    const selectedCategory = e.target.value;
+                    <select
+                        value={selected}
+                        onChange={(e) => {
+                            navigate(`/products?category=${e.target.value}`);
+                            setSelected("");
+                        }}
+                    >
+                        <option value="" disabled>Categories</option>
+                        {categories.map(cat => (
+                            <option key={cat.id} value={cat.name}>
+                                {cat.name}
+                            </option>
+                        ))}
+                    </select>
 
-                                    navigate(`/products?category=${selectedCategory}`);
+                    <Link to="/">About</Link>
+                    <Link to="/">FAQ</Link>
+                    <Link to="/">Contacts</Link>
 
-                                    setSelected(""); // 👈 reset immediato
-                                }}>
-                                <option value="" disabled>
-                                    Categories
-                                </option>
+                    {/* CART */}
+                    <Link to="/cart" className="header-cart">
+                        <i className="bi bi-bag cart-icon"></i>
+                        <span className="cart-badge">0</span>
+                    </Link>
+                </nav>
 
-                                {categories.map((cat) => (
-                                    <option key={cat.id} value={cat.name}>
-                                        {cat.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </li>
-                        <li className="nav-item px-2">
-                            <Link className="nav-link text-uppercase small fw-semibold" to="/">About Us</Link>
-                        </li>
-                        <li className="nav-item px-2">
-                            <Link className="nav-link text-uppercase small fw-semibold" to="/">FAQ</Link>
-                        </li>
-                        <li className="nav-item px-2">
-                            <Link className="nav-link text-uppercase small fw-semibold" to="/">Contacts</Link>
-                        </li>
-
-                        <li className="nav-item ms-lg-3">
-                            <Link className="nav-link position-relative d-inline-block" to="/cart">
-                                <i className="bi bi-bag fs-4 text-dark"></i>
-                                {/* Badge numero articoli */}
-                                <span className="position-absolute  start-100 translate-middle badge rounded-pill bg-dark" style={{ fontSize: '0.6rem' }}>
-                                    0
-                                </span>
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </nav>
+        </header>
     );
 }

@@ -3,9 +3,130 @@
 
 
 
-.img_logo {
-    width: 120px;
-    padding: 10px;
+/* ===== COLOR PALETTE ===== */
+:root {
+    --green-main: #BFE3C0;
+    --green-dark: #2E6B3F;
+    --green-text: #1F3D2B;
+    --green-soft: #A9D6AB;
+    --bg-light: #F8FFF9;
+}
+
+/* ===== HEADER ===== */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--bg-light);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+/* LOGO */
+.header-logo img {
+    height: 48px;
+}
+
+/* SEARCH */
+.header-search {
+    display: flex;
+    flex: 1;
+    max-width: 360px;
+}
+
+.header-search input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--green-main);
+    border-radius: 6px 0 0 6px;
+    outline: none;
+}
+
+.header-search button {
+    padding: 0 14px;
+    border: 1px solid var(--green-main);
+    background-color: var(--green-main);
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.header-search button:hover {
+    background-color: var(--green-dark);
+}
+
+.header-search button i {
+    font-size: 1rem;
+    color: var(--green-text);
+    transition: color 0.2s ease;
+}
+
+.header-search button:hover i {
+    color: var(--bg-light);
+}
+
+/* NAV */
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.header-nav a,
+.header-nav select {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--green-text);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* SELECT */
+.header-nav select {
+    border: 1px solid var(--green-main);
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+/* CART */
+.header-cart {
+    position: relative;
+    margin-left: 12px;
+}
+
+.cart-icon {
+    font-size: 1.6rem;
+    color: var(--green-text);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.header-cart:hover .cart-icon {
+    transform: scale(1.1);
+    color: var(--green-dark);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background-color: var(--green-dark);
+    color: white;
+    font-size: 0.6rem;
+    padding: 2px 6px;
+    border-radius: 999px;
 }
 
 /* Struttura Principale */
