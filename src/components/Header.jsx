@@ -7,6 +7,8 @@ export default function Header() {
     const navigate = useNavigate();
 
     const [categories, setCategories] = useState([]);
+    const [selected, setSelected] = useState("");
+
 
     useEffect(() => {
         axios.get("http://localhost:3000/api/categories")
@@ -51,11 +53,14 @@ export default function Header() {
                         <li className="nav-item px-2">
                             <select
                                 className="form-select form-select-sm text-uppercase small fw-semibold"
-                                defaultValue=""
+                                value={selected}
                                 style={{ minWidth: "120px" }}
                                 onChange={(e) => {
                                     const selectedCategory = e.target.value;
+
                                     navigate(`/products?category=${selectedCategory}`);
+
+                                    setSelected(""); // 👈 reset immediato
                                 }}>
                                 <option value="" disabled>
                                     Categories
