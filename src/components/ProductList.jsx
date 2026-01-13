@@ -31,7 +31,7 @@ export default function ProductList({ products, bestSellers }) {
 
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
                     {bestSellers && bestSellers.map((prod, i) => (
-                        i < 4 && <SingleCardProduct product={prod} />
+                        i < 4 && <SingleCardProduct key={i} product={prod} />
                     ))}
 
                 </div>
