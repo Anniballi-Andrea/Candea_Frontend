@@ -3,6 +3,7 @@ import DefaultLayout from "./layout/DefaultLayout";
 import CategoryProduct from "./pages/CategoryProduct";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/cart";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Route path="/products/:slug" element={<ProductDetail />} />
           <Route path="/products" element={<CategoryProduct />} />
           <Route path="/products/category" element={<CategoryProduct />} />
-          <Route path="/cart" element={<h1>QUesto è il carrello in futuro</h1>} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
     </BrowserRouter>
