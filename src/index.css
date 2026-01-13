@@ -2,6 +2,12 @@
 @import url('bootstrap-icons');
 
 
+
+.img_logo {
+    width: 120px;
+    padding: 10px;
+}
+
 /* Contenitore Principale */
 .banner-container {
     position: relative;

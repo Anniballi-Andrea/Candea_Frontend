@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import products from "../assets/candele.js";
 
 export default function Header() {
@@ -9,7 +9,7 @@ export default function Header() {
             <div className="container">
 
                 <Link className="navbar-brand fw-bold fs-3" to="/" style={{ letterSpacing: '1px' }}>
-                    CANDEA
+                    <img className="img_logo" src="/logo_scrittura.png" alt="" />
                 </Link>
 
                 <button
