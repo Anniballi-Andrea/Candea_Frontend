@@ -1,7 +1,7 @@
-import ProductList from "../components/ProductList";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import axios from "axios";
+import ProductListCategory from "../components/ProductListCategory";
 
 export default function CategoryProduct() {
 
@@ -22,7 +22,7 @@ export default function CategoryProduct() {
         <div className="container p-5 text-center">
             <h1>Category Product Page</h1>
             <p>Qui verranno mostrati i prodotti filtrati per categoria.</p>
-            <ProductList products={products} />
+            <ProductListCategory products={products} />
         </div>
     );
 }
