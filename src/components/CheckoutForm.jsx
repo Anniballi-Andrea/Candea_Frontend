@@ -93,17 +93,6 @@ export default function CheckoutForm() {
                             <input type="number" id="streetNumber" className="custom-input" placeholder="10"
                                 value={checkoutForm.streetNumber} onChange={handleChange} required />
                         </div>
-
-                        {/* --- SEZIONE SCONTO --- */}
-                        <div className="col-12 mt-4">
-                            <div className="discount-box">
-                                <label htmlFor="discountCode" className="custom-label">Hai un codice sconto?</label>
-                                <div className="d-flex gap-2">
-                                    <input type="text" id="discountCode" className="custom-input" style={{ maxWidth: '250px' }}
-                                        placeholder="Inserisci codice" value={checkoutForm.discountCode} onChange={handleChange} />
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     {/* --- BOTTONE INVIO --- */}
