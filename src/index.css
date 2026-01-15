@@ -540,3 +540,152 @@
         font-size: 1.5rem;
     }
 }
+
+/* ============================================================
+   RESPONSIVE HEADER ADJUSTMENTS
+   ============================================================ */
+
+/* 1. COMPORTAMENTO GENERALE MOBILE (Sotto i 991px) */
+@media (max-width: 991.98px) {
+    .custom-navbar .container {
+        padding: 10px 15px !important;
+        flex-wrap: wrap;
+        /* Permette alla ricerca di andare a capo se necessario */
+    }
+
+    /* La barra di ricerca si adatta allo spazio o va sotto */
+    .header-search-form {
+        order: 3;
+        /* Sposta la ricerca sotto logo e hamburger */
+        max-width: 100%;
+        width: 100%;
+        margin: 10px 0 5px 0 !important;
+        flex: none;
+    }
+
+    /* Il menu a comparsa (hamburger) */
+    .navbar-collapse {
+        order: 4;
+        background-color: var(--bg-light);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+    }
+
+    .navbar-nav {
+        gap: 15px;
+        /* Riduciamo il gap tra i link */
+        align-items: flex-start !important;
+        /* Allinea a sinistra nel menu mobile */
+    }
+
+    /* Sistemiamo la select categorie su mobile */
+    .nav-select {
+        width: 100%;
+        padding: 8px;
+    }
+
+    .header-cart-link {
+        margin-left: 0;
+        padding: 10px 0 !important;
+    }
+}
+
+/* 2. SPECIFICO PER TELEFONO (Sotto i 576px) */
+@media (max-width: 575.98px) {
+    .navbar-brand img {
+        height: 35px;
+        /* Logo leggermente più piccolo su smartphone */
+    }
+
+    .slide-title {
+        font-size: 2rem !important;
+        /* Titolo banner più piccolo */
+    }
+
+    /* Se hai troppi elementi, nascondiamo i testi meno importanti o riduciamo i font */
+    .custom-navbar .nav-link {
+        font-size: 0.85rem !important;
+        /* Leggermente più grande per facilitare il touch */
+    }
+}
+
+/* 3. AGGIUSTAMENTO PULSANTE HAMBURGER */
+.navbar-toggler {
+    border: 1px solid var(--green-main);
+    padding: 4px 8px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem rgba(191, 227, 192, 0.5);
+    /* Glow verde quando cliccato */
+}
+
+/* 4. FIX PER LE CARD PRODOTTI SU MOBILE */
+@media (max-width: 767.98px) {
+    .product-card {
+        min-height: auto;
+        /* Rimuoviamo l'altezza fissa per evitare spazi vuoti enormi */
+        margin-bottom: 20px;
+    }
+
+    .product-image-wrapper {
+        height: 200px;
+        /* Immagini un po' più basse su mobile */
+    }
+}
+
+/* Impedisce a tutto il sito di scorrere a destra per errore */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Fix per il container della ricerca */
+.search-container-fluid {
+    min-width: 0;
+    /* Importante per flexbox su mobile */
+    max-width: 100%;
+}
+
+/* Modifica la tua classe header-search-form esistente */
+.header-search-form {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    /* Evita che superi lo schermo */
+    margin: 0 !important;
+    /* Rimuoviamo i margini che spingono fuori */
+}
+
+/* Ridimensiona l'input della ricerca su telefoni molto piccoli */
+@media (max-width: 576px) {
+    .header-search-form .form-control {
+        padding: 5px 8px;
+        font-size: 0.85rem;
+    }
+
+    .navbar-brand {
+        margin-right: 5px !important;
+    }
+
+    .navbar-brand img {
+        height: 30px;
+        /* Logo più piccolo per far stare la ricerca */
+    }
+}
+
+/* Miglioriamo l'aspetto del menu a tendina su mobile */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: var(--bg-light);
+        border-top: 1px solid var(--green-main);
+        padding: 15px;
+        margin-left: -15px;
+        /* Compensa il padding del container */
+        margin-right: -15px;
+        width: calc(100% + 30px);
+    }
+}

@@ -17,112 +17,127 @@ export default function ProductDetail() {
                 const data = response.data;
                 setProduct(data);
 
-                // Calcolo iniziale disponibilità reale (DB - Carrello)
+                // Calcolo disponibilità iniziale considerando il carrello
                 const inCart = cart.find(item => item.id === data.id);
                 const qtyInCart = inCart ? inCart.quantity : 0;
                 const realAvailable = data.available_quantity - qtyInCart;
 
-                // Se non c'è più nulla, il contatore parte da 0, altrimenti da 1
                 setQuantity(realAvailable <= 0 ? 0 : 1);
             })
-            .catch(err => console.error("Errore recupero prodotto:", err));
+            .catch(err => console.error("Errore:", err));
     }, [slug, cart]);
 
-    // --- LOGICA DI CALCOLO MATEMATICA ---
-
-    // 1. Quanti ne ha già messi nel carrello
+    // --- LOGICA RIGIDA DI CALCOLO ---
     const alreadyInCart = product ? (cart.find(item => item.id === product.id)?.quantity || 0) : 0;
-
-    // 2. DISPONIBILITÀ RESIDUA TOTALE 
-    // (Magazzino totale - Già nel carrello - Quelli selezionati ora con + e -)
-    const currentStockDisplay = product ? (product.available_quantity - alreadyInCart - quantity) : 0;
-
-    // Massimo selezionabile in questo momento
     const maxSelectableNow = product ? (product.available_quantity - alreadyInCart) : 0;
 
+    // Numero dinamico che decrementa mentre l'utente preme "+"
+    const currentStockDisplay = product ? (product.available_quantity - alreadyInCart - quantity) : 0;
+
     const increaseQty = () => {
-        if (quantity < maxSelectableNow) {
-            setQuantity(prev => prev + 1);
-        }
+        if (quantity < maxSelectableNow) setQuantity(prev => prev + 1);
     };
 
     const decreaseQty = () => {
-        if (quantity > 1) {
-            setQuantity(prev => prev - 1);
-        }
+        if (quantity > 1) setQuantity(prev => prev - 1);
     };
 
     const handleAdd = () => {
         if (quantity > 0 && quantity <= maxSelectableNow) {
             addToCart(product, quantity);
             setShowSuccess(true);
-
-            // Dopo l'invio, resetto la selezione a 1 (se ne rimangono) o 0
-            const remainingAfterPush = maxSelectableNow - quantity;
-            setQuantity(remainingAfterPush > 0 ? 1 : 0);
-
+            const nextAvailable = maxSelectableNow - quantity;
+            setQuantity(nextAvailable > 0 ? 1 : 0);
             setTimeout(() => setShowSuccess(false), 3000);
         }
     };
+
+    function capitalize(str) {
+        if (!str) return "";
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
     if (!product) return <div className="container p-5 text-center">Caricamento...</div>;
 
     return (
         <div className="container my-5 py-5">
             <div className="row g-5">
+                {/* COLONNA IMMAGINE */}
                 <div className="col-md-6">
-                    <div className="ratio ratio-1x1 bg-white border shadow-sm rounded">
-                        <img src={`http://localhost:3000/${product.img}`} alt={product.name} className="object-fit-contain p-4" />
+                    <div className="ratio ratio-1x1 bg-white mb-3 border shadow-sm rounded">
+                        <img
+                            src={`http://localhost:3000/${product.img}`}
+                            alt={product.name}
+                            className="object-fit-contain p-4"
+                        />
                     </div>
                 </div>
 
+                {/* COLONNA DETTAGLI */}
                 <div className="col-md-6">
-                    <h1 className="display-5 fw-bold">{product.name.toUpperCase()}</h1>
-                    <p className="text-secondary mb-4">{product.description}</p>
+                    <h1 className="display-5 fw-bold">{capitalize(product.name)}</h1>
 
+                    {/* Dati recuperati: Dimensioni */}
+                    <p className="text-muted fs-5">{product.dimensions}</p>
+
+                    <p className="my-4 text-secondary">{product.description}</p>
+
+                    {/* Dati recuperati: Sentori, Durata, Colore */}
+                    <div className="product-info-list mb-4">
+                        <p className="mb-1 text-secondary"><strong>Sentori di:</strong> {product.scent}</p>
+                        <p className="mb-1 text-secondary"><strong>Durata:</strong> {product.burn_time}</p>
+                        <p className="mb-1 text-secondary"><strong>Colore:</strong> {product.color}</p>
+                    </div>
+
+                    <hr />
+
+                    {/* DISPONIBILITÀ DINAMICA */}
                     <div className="mb-4">
-                        {/* UNICA SCRITTA DISPONIBILITÀ CHE DECREMENTA SEMPRE */}
                         {maxSelectableNow > 0 ? (
                             <span className={`fw-bold text-uppercase small ${currentStockDisplay === 0 ? 'text-danger' : 'text-muted'}`}>
                                 Disponibilità magazzino: {currentStockDisplay} PZ
                             </span>
                         ) : (
                             <span className="fw-bold text-danger text-uppercase small">
-                                Prodotto esaurito
+                                Esaurito o limite raggiunto
                             </span>
                         )}
                     </div>
 
-                    <hr />
-
+                    {/* SELETTORE QUANTITÀ */}
                     <div className="d-flex align-items-center gap-4 my-5">
-                        <div className="d-flex border rounded bg-white">
-                            <button onClick={decreaseQty} className="btn px-3" disabled={quantity <= 1}>-</button>
-                            <span className="px-4 py-2 fw-bold border-start border-end" style={{ minWidth: '60px', textAlign: 'center' }}>
+                        <span className="fw-bold text-uppercase small">Quantità</span>
+                        <div className="d-flex border align-items-center bg-white shadow-sm">
+                            <button onClick={decreaseQty} className="btn px-3 fw-bold" disabled={quantity <= 1}>-</button>
+                            <span className="px-4 border-start border-end fw-bold" style={{ minWidth: '60px', textAlign: 'center' }}>
                                 {quantity}
                             </span>
-                            <button onClick={increaseQty} className="btn px-3" disabled={quantity >= maxSelectableNow}>+</button>
+                            <button onClick={increaseQty} className="btn px-3 fw-bold" disabled={quantity >= maxSelectableNow}>+</button>
                         </div>
-                        <h2 className="mb-0 fw-bold">
+                    </div>
+
+                    {/* PREZZO E AGGIUNGI */}
+                    <div className="d-flex justify-content-between align-items-end">
+                        <h2 className="display-6 fw-light">
                             €{(quantity * parseFloat(product.initial_price)).toFixed(2)}
                         </h2>
+
+                        <div className="position-relative">
+                            <button
+                                className="btn btn-dark btn-lg px-5 py-3"
+                                onClick={handleAdd}
+                                disabled={maxSelectableNow <= 0 || quantity === 0}
+                            >
+                                {maxSelectableNow <= 0 ? "Non disponibile" : "Aggiungi"}
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="position-relative">
-                        <button
-                            className="btn btn-dark btn-lg w-100 py-3 fw-bold"
-                            onClick={handleAdd}
-                            disabled={maxSelectableNow <= 0 || quantity === 0}
-                        >
-                            {maxSelectableNow <= 0 ? "NON DISPONIBILE" : "AGGIUNGI AL CARRELLO"}
-                        </button>
-
-                        {showSuccess && (
-                            <div className="alert alert-success mt-3 text-center py-2 animate__animated animate__fadeIn">
-                                <i className="bi bi-check2-circle me-2"></i> Prodotto aggiunto correttamente!
-                            </div>
-                        )}
-                    </div>
+                    {showSuccess && (
+                        <div className="alert alert-success mt-4 text-center py-2 animate__animated animate__fadeIn">
+                            <i className="bi bi-check2-circle me-2"></i> Prodotto aggiunto!
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
