@@ -35,6 +35,11 @@ export default function ProductDetail() {
         }
     };
 
+    function capitalize(str) {
+        if (!str) return "";
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     if (!product) {
         return (
             <div className="container p-5 text-center">
@@ -58,7 +63,7 @@ export default function ProductDetail() {
                 </div>
 
                 <div className="col-md-6">
-                    <h1 className="display-5 fw-bold">{product.name}</h1>
+                    <h1 className="display-5 fw-bold">{capitalize(product.name)}</h1>
                     <p className="text-muted fs-5">{product.dimensions}</p>
                     <p className="my-4 text-secondary">{product.description}</p>
                     <p className="my-4 text-secondary">Sentori di {product.scent}</p>

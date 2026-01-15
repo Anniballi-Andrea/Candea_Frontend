@@ -15,9 +15,9 @@ export default function Footer() {
                 {/* NAV */}
                 <ul className="footer-nav">
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/">Products</Link></li>
-                    <li><Link to="/">About Us</Link></li>
-                    <li><Link to="/">Contacts</Link></li>
+                    <li><Link to="/">prodotti</Link></li>
+                    <li><Link to="/">chi siamo</Link></li>
+                    <li><Link to="/">contatti</Link></li>
                 </ul>
 
                 {/* SOCIAL */}
