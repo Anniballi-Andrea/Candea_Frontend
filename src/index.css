@@ -363,6 +363,69 @@
     color: #2E6B3F;
 }
 
+
+.cart-item-row {
+    transition: all 0.2s ease;
+    border: 1px solid #eee !important;
+}
+
+.cart-item-row:hover {
+    border-color: var(--green-main) !important;
+}
+
+.shipping-tracker .progress {
+    background-color: #e9ecef;
+    overflow: visible;
+    /* Necessario per l'icona sopra la linea */
+}
+
+.shipping-tracker i.bi-truck {
+    z-index: 2;
+}
+
+/* Stile per il testo "remove" sotto l'icona cestino */
+.btn-link .small {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.cart-item-row {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--green-main) !important;
+    /* Uso il tuo verde chiaro per il bordo */
+    transition: all 0.3s ease;
+}
+
+.cart-item-row:hover {
+    border-color: var(--green-soft) !important;
+    box-shadow: 0 4px 15px rgba(46, 107, 63, 0.1) !important;
+    /* Ombra leggermente verdastra */
+}
+
+/* Stile per il tasto remove */
+.btn-remove-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #dc3545;
+    /* Mantengo il rosso per il pericolo, o usa var(--green-dark) se vuoi tutto verde */
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-remove-container:hover {
+    opacity: 0.7;
+}
+
+.btn-remove-text {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: -2px;
+}
+
 /* ===== FOOTER ===== */
 .footer {
     background-color: var(--green-dark);
