@@ -17,12 +17,13 @@ export default function Wish() {
 					</Link>
 				</div>
 			) : (
-				<div className="row g-4">
-					<div className="col-lg-8">
-						{wishlist.map((product) => (
-							<SingleCardProduct product={product}></SingleCardProduct>
-						))}
-					</div>
+				<div className="my-3 row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+					{wishlist.map((product, index) => (
+						<SingleCardProduct
+							key={index}
+							product={product}
+						></SingleCardProduct>
+					))}
 				</div>
 			)}
 		</div>
