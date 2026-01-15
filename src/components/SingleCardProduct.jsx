@@ -20,6 +20,7 @@ export default function SingleCardProduct({ product }) {
                 <div className="product-card">
 
                     <div className="product-image-wrapper">
+                        <i className="bi bi-suit-heart"></i>
                         <img
                             src={`http://localhost:3000/${product.img}`}
                             alt={product.name}
