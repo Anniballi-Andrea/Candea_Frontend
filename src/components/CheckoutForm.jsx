@@ -1,34 +1,59 @@
 import axios from "axios"
 import { useState } from "react"
 
-export default function CheckoutForm() {
-
+export default function CheckoutForm({ cart }) {
+    const [message, setMessage] = useState(false)
 
 
     const initialCheckoutForm = {
-        firstName: "",
-        secondName: "",
+        first_name: "",
+        last_name: "",
         email: "",
-        phone: "",
+        phone_number: "",
         city: "",
         province: "",
         street: "",
-        streetNumber: "",
-        zipCode: "",
-        discountCode: ""
+        street_number: "",
+        zip_code: "",
+        discount_code: ""
     }
 
-    const [checkoutForm, SetCheckoutForm] = useState(initialCheckoutForm)
+    const [checkoutForm, setCheckoutForm] = useState(initialCheckoutForm)
 
     function handleSubmit(e) {
         e.preventDefault()
-        console.log(checkoutForm)
+        const products = cart.map(el => {
+            return ({
+                id: el.id,
+                quantity: el.quantity
+            })
+        })
+
+        const data = {
+            products,
+            ...checkoutForm
+        }
+        console.log(data)
+
+        axios.post(`http://localhost:3000/api/orders`, data)
+            .then((res) => {
+                setMessage("Grazie per l'aquisto")
+                setCheckoutForm(initialCheckoutForm)
+
+            })
+
+            .catch((err) => {
+                setMessage("ops, c'è stato un errore")
+                console.log(err)
+            })
+
     }
 
 
     return (
 
         <div className="container mt-5">
+            {message && <p>{message}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
                     <div className="col mt-3">
@@ -38,8 +63,8 @@ export default function CheckoutForm() {
 
                         <input type="text"
                             id="firstName"
-                            value={checkoutForm.firstName}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, firstName: e.target.value })}
+                            value={checkoutForm.first_name}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, first_name: e.target.value })}
                             placeholder="Nome" />
                     </div>
                     <div className="col mt-3">
@@ -49,8 +74,8 @@ export default function CheckoutForm() {
 
                         <input type="text"
                             id="secondName"
-                            value={checkoutForm.secondName}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, secondName: e.target.value })}
+                            value={checkoutForm.last_name}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, last_name: e.target.value })}
                             placeholder="Cognome" />
                     </div>
                     <div className="col mt-3">
@@ -61,7 +86,7 @@ export default function CheckoutForm() {
                         <input type="email"
                             id="email"
                             value={checkoutForm.email}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, email: e.target.value })}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, email: e.target.value })}
                             placeholder="email" />
                     </div>
                     <div className="col mt-3">
@@ -71,8 +96,8 @@ export default function CheckoutForm() {
 
                         <input type="text"
                             id="phone"
-                            value={checkoutForm.phone}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, phone: e.target.value })}
+                            value={checkoutForm.phone_number}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, phone_number: e.target.value })}
                             placeholder="Numero di telefono" />
                     </div>
                     <div className="col mt-3">
@@ -83,7 +108,7 @@ export default function CheckoutForm() {
                         <input type="text"
                             id="city"
                             value={checkoutForm.city}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, city: e.target.value })}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, city: e.target.value })}
                             placeholder="Città" />
                     </div>
                     <div className="col mt-3">
@@ -94,7 +119,7 @@ export default function CheckoutForm() {
                         <input type="text"
                             id="province"
                             value={checkoutForm.province}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, province: e.target.value })}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, province: e.target.value })}
                             placeholder="Provincia" />
                     </div>
                     <div className="col mt-3">
@@ -105,7 +130,7 @@ export default function CheckoutForm() {
                         <input type="text"
                             id="street"
                             value={checkoutForm.street}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, street: e.target.value })}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, street: e.target.value })}
                             placeholder="Via" />
                     </div>
                     <div className="col mt-3">
@@ -115,8 +140,8 @@ export default function CheckoutForm() {
 
                         <input type="Number"
                             id="streetNumber"
-                            value={checkoutForm.streetNumber}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, streetNumber: e.target.value })}
+                            value={checkoutForm.street_number}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, street_number: e.target.value })}
                             placeholder="Numero civico" />
                     </div>
                     <div className="col mt-3">
@@ -126,8 +151,8 @@ export default function CheckoutForm() {
 
                         <input type="text"
                             id="zipCode"
-                            value={checkoutForm.zipCode}
-                            onChange={(e) => SetCheckoutForm({ ...checkoutForm, zipCode: e.target.value })}
+                            value={checkoutForm.zip_code}
+                            onChange={(e) => setCheckoutForm({ ...checkoutForm, zip_code: e.target.value })}
                             placeholder="CAP" />
                     </div>
                 </div>
@@ -139,8 +164,8 @@ export default function CheckoutForm() {
                             </div>
                             <input type="text"
                                 id="discountCode"
-                                value={checkoutForm.discountCode}
-                                onChange={(e) => SetCheckoutForm({ ...checkoutForm, discountCode: e.target.value })}
+                                value={checkoutForm.discount_code}
+                                onChange={(e) => setCheckoutForm({ ...checkoutForm, discount_code: e.target.value })}
                                 placeholder="Codice sconto" />
                         </div>
                     </div>

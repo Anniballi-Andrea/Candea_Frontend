@@ -1,9 +1,27 @@
 import CheckoutForm from "../components/CheckoutForm";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Cart() {
-    const { cart, removeFromCart, clearCart } = useCart();
+    const { cart, removeFromCart, clearCart, setDiscount_Code, discount_code } = useCart();
+    const [tempCode, setTempCode] = useState("")
+    const [discount, setDiscount] = useState(false)
+
+    function controlCode() {
+        axios.get(`http://localhost:3000/api/discount/${tempCode}`)
+            .then((res) => {
+                console.log(res.data.value)
+                //setDiscount_Code(res.data.code)
+                //setDiscount(res.data.value)
+
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
 
     const total = cart.reduce((acc, item) => acc + (item.initial_price * item.quantity), 0);
 
@@ -124,12 +142,24 @@ export default function Cart() {
                                 <span>Totale</span>
                                 <span>€{total.toFixed(2)}</span>
                             </div>
+                            <div className="d-flex align-items-center">
+                                <div>
+                                    <input
+                                        type="text"
+                                        value={tempCode}
+                                        onChange={(e) => setTempCode(e.target.value)}
+                                        placeholder="invia codice sconto" />
+                                </div>
+                                <div>
+                                    <button className="btn btn-dark w-100 btn-sm " onClick={controlCode}>Invia</button>
+                                </div>
+                            </div>
                             <button className="btn btn-dark w-100 btn-lg mt-3">Procedi al Checkout</button>
                         </div>
                     </div>
                 </div>
             )}
-            <CheckoutForm />
+            <CheckoutForm cart={cart} />
         </div>
 
 

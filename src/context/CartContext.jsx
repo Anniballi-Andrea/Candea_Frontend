@@ -4,6 +4,8 @@ const CartContext = createContext();
 
 export function CartProvider({ children }) {
     // Carica dal localStorage all'avvio
+    const [discount_code, setDiscount_Code] = useState("")
+
     const [cart, setCart] = useState(() => {
         const savedCart = localStorage.getItem("shopping-cart");
         return savedCart ? JSON.parse(savedCart) : [];
@@ -37,7 +39,7 @@ export function CartProvider({ children }) {
     const clearCart = () => setCart([]);
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, discount_code, setDiscount_Code }}>
             {children}
         </CartContext.Provider>
     );
