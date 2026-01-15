@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function SingleCardProduct({ product }) {
+
+    const [like, setLike] = useState(false)
 
     function capitalize(str) {
         if (!str) return "";
@@ -20,7 +23,13 @@ export default function SingleCardProduct({ product }) {
                 <div className="product-card">
 
                     <div className="product-image-wrapper">
-                        <i className="bi bi-suit-heart"></i>
+                        <i
+                            className={`bi ${like ? "bi-suit-heart-fill" : "bi-suit-heart"}`}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                setLike(prev => !prev)
+                            }}
+                        ></i>
                         <img
                             src={`http://localhost:3000/${product.img}`}
                             alt={product.name}
@@ -40,7 +49,7 @@ export default function SingleCardProduct({ product }) {
                     </div>
 
                 </div>
-            </Link>
-        </div>
+            </Link >
+        </div >
     );
 }
