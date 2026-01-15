@@ -50,7 +50,7 @@ export default function Header() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto align-items-center">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/products_view">Products</Link>
+                            <Link className="nav-link" to="/products_view">prodotti</Link>
                         </li>
 
                         <li className="nav-item">
@@ -62,7 +62,7 @@ export default function Header() {
                                     setSelected("");
                                 }}
                             >
-                                <option value="" disabled>Categories</option>
+                                <option value="" disabled>categorie</option>
                                 {categories.map(cat => (
                                     <option key={cat.id} value={cat.name}>{cat.name}</option>
                                 ))}
@@ -70,7 +70,7 @@ export default function Header() {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">About</Link>
+                            <Link className="nav-link" to="/">chi siamo</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/">FAQ</Link>
