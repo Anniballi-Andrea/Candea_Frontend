@@ -21,6 +21,7 @@ export default function Search() {
                 className="form-control"
                 type="search"
                 placeholder="Cerca candele..."
+                value={query}
                 onChange={e => setQuery(e.target.value)}
             />
             <button className="btn btn-search" type="submit">
