@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Search from "./Search"
 
 export default function Header() {
     const navigate = useNavigate();
@@ -22,16 +23,7 @@ export default function Header() {
                 </Link>
 
                 {/* SEARCH BAR (Sempre visibile o integrata) */}
-                <form className="d-flex mx-auto header-search-form">
-                    <input
-                        className="form-control"
-                        type="search"
-                        placeholder="Cerca candele..."
-                    />
-                    <button className="btn btn-search" type="submit">
-                        <i className="bi bi-search"></i>
-                    </button>
-                </form>
+                <Search />
 
                 {/* HAMBURGER BUTTON */}
                 <button
