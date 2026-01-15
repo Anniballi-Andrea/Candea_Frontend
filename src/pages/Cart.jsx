@@ -7,6 +7,8 @@ export default function Cart() {
     const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
     const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
 
+
+
     // Totale generale
     const total = cart.reduce(
         (acc, item) => acc + Number(item.initial_price) * item.quantity,
