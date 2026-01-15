@@ -6,6 +6,8 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/cart";
 import Products from "./pages/Products";
 
+
+
 function App() {
   return (
     <BrowserRouter>
