@@ -8,15 +8,15 @@ export default function Search() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        console.log("QUERY:", query)
         if (!query.trim()) return;
 
-        navigate(`/products?search=${encodeURIComponent(query)}`)
+        navigate(`/products_view?search=${encodeURIComponent(query)}`)
         setQuery("")
     }
 
     return (
-        <form className="d-flex mx-auto header-search-form">
+        <form className="d-flex mx-auto header-search-form" onSubmit={handleSubmit}>
             <input
                 className="form-control"
                 type="search"
