@@ -1,11 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function Header() {
     const navigate = useNavigate();
     const [categories, setCategories] = useState([]);
     const [selected, setSelected] = useState("");
+
+    const { cart } = useCart();
+
+    // Mostra il numero di prodotti diversi (lunghezza array)
+    // Es: 3 candele vaniglia = segna 1
+    const uniqueItemsCount = cart.length;
 
     useEffect(() => {
         axios.get("http://localhost:3000/api/categories")
@@ -16,37 +23,17 @@ export default function Header() {
     return (
         <nav className="navbar navbar-expand-lg sticky-top custom-navbar">
             <div className="container">
-                {/* LOGO */}
                 <Link className="navbar-brand" to="/">
                     <img src="/logo_scrittura.png" alt="Logo" height="45" />
                 </Link>
 
-                {/* SEARCH BAR (Sempre visibile o integrata) */}
                 <form className="d-flex mx-auto header-search-form">
-                    <input
-                        className="form-control"
-                        type="search"
-                        placeholder="Cerca candele..."
-                    />
+                    <input className="form-control" type="search" placeholder="Cerca candele..." />
                     <button className="btn btn-search" type="submit">
                         <i className="bi bi-search"></i>
                     </button>
                 </form>
 
-                {/* HAMBURGER BUTTON */}
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                {/* NAV LINKS */}
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto align-items-center">
                         <li className="nav-item">
@@ -70,16 +57,27 @@ export default function Header() {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">chi siamo</Link>
+                            <Link className="nav-link" to="/">Chi siamo</Link>
                         </li>
+
                         <li className="nav-item">
                             <Link className="nav-link" to="/">FAQ</Link>
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link header-cart-link" to="/cart">
+                            <Link className="nav-link header-cart-link" to="/cart" style={{ position: 'relative' }}>
                                 <i className="bi bi-bag"></i>
-                                <span className="badge rounded-pill">0</span>
+                                {uniqueItemsCount > 0 && (
+                                    <span className="badge rounded-pill bg-danger"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '-5px',
+                                            right: '-5px',
+                                            fontSize: '0.7rem'
+                                        }}>
+                                        {uniqueItemsCount}
+                                    </span>
+                                )}
                             </Link>
                         </li>
                     </ul>
