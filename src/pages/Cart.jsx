@@ -1,26 +1,17 @@
-import CheckoutForm from "../components/CheckoutForm";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import CheckoutForm from "../components/CheckoutForm";
 import { useCart } from "../context/CartContext";
 
 export default function Cart() {
-    const { cart, removeFromCart, clearCart } = useCart();
+    const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
+    const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
 
-    const total = cart.reduce((acc, item) => acc + (item.initial_price * item.quantity), 0);
-
-    // Funzione per calcolare date fittizie di consegna
-    const getDeliveryDates = () => {
-        const today = new Date();
-        const delivery = new Date();
-        delivery.setDate(today.getDate() + 3);
-
-        const options = { day: '2-digit', month: 'short' };
-        return {
-            start: today.toLocaleDateString('it-IT', options),
-            end: delivery.toLocaleDateString('it-IT', options)
-        };
-    };
-
-    const dates = getDeliveryDates();
+    // Totale generale
+    const total = cart.reduce(
+        (acc, item) => acc + Number(item.initial_price) * item.quantity,
+        0
+    );
 
     return (
         <div className="container my-5 py-5">
@@ -32,106 +23,108 @@ export default function Cart() {
                     <Link to="/" className="btn btn-dark px-4 mt-3">Inizia lo shopping</Link>
                 </div>
             ) : (
-                <div className="row g-4">
-                    <div className="col-lg-8">
-                        {cart.map((item) => (
-                            <div key={item.id} className="cart-item-row p-3 border rounded mb-3 shadow-sm bg-white">
-                                <div className="row align-items-center">
-                                    {/* Immagine Prodotto */}
-                                    <div className="col-2">
-                                        <img
-                                            src={`http://localhost:3000/${item.img}`}
-                                            alt={item.name}
-                                            className="img-fluid rounded"
-                                            style={{ maxHeight: '80px', objectFit: 'contain' }}
-                                        />
-                                    </div>
+                <>
+                    <div className="row g-4">
+                        {/* LISTA PRODOTTI */}
+                        <div className="col-lg-8">
+                            {cart.map(item => (
+                                <div key={item.id} className="cart-item-row p-3 border rounded mb-3 shadow-sm bg-white">
+                                    <div className="row align-items-center gy-3">
 
-                                    {/* Info Prodotto */}
-                                    <div className="col-3">
-                                        <h6 className="fw-bold mb-0">{item.name.toUpperCase()}</h6>
-                                        <p className="text-muted small mb-0">Quantità: {item.quantity}</p>
-                                        <p className="fw-bold mb-0">€{(item.initial_price * item.quantity).toFixed(2)}</p>
-                                    </div>
-
-                                    {/* Tragitto Spedizione (Il tuo Design) */}
-                                    <div className="col-5">
-                                        <div className="shipping-tracker px-3">
-                                            <div className="d-flex justify-content-between mb-2">
-                                                <div className="text-start">
-                                                    <span style={{ fontSize: '0.65rem', color: 'var(--green-dark)', opacity: 0.7, display: 'block', fontWeight: '600' }}>PARTENZA</span>
-                                                    <strong style={{ color: 'var(--green-text)', fontSize: '0.85rem' }}>{dates.start}</strong>
-                                                </div>
-                                                <div className="text-end">
-                                                    <span style={{ fontSize: '0.65rem', color: 'var(--green-dark)', opacity: 0.7, display: 'block', fontWeight: '600' }}>ARRIVO</span>
-                                                    <strong style={{ color: 'var(--green-text)', fontSize: '0.85rem' }}>{dates.end}</strong>
-                                                </div>
-                                            </div>
-
-                                            <div className="position-relative d-flex align-items-center" style={{ height: '24px' }}>
-                                                {/* Linea di fondo (grigio chiarissimo o il tuo bg-light) */}
-                                                <div className="w-100" style={{ height: '2px', backgroundColor: '#e0e0e0', position: 'absolute' }}></div>
-
-                                                {/* Linea del progresso (Verde scuro per visibilità) */}
-                                                <div style={{
-                                                    height: '2px',
-                                                    backgroundColor: 'var(--green-dark)',
-                                                    width: '40%',
-                                                    position: 'absolute',
-                                                    zIndex: 1
-                                                }}></div>
-
-                                                {/* Icona Camioncino */}
-                                                <div className="position-absolute" style={{ left: '40%', transform: 'translateX(-50%)', zIndex: 2 }}>
-                                                    <div style={{ backgroundColor: '#fff', padding: '0 4px' }}>
-                                                        <i className="bi bi-truck fs-5" style={{ color: 'var(--green-dark)' }}></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <p className="text-center fw-bold mt-1 mb-0" style={{ fontSize: '0.6rem', color: 'var(--green-dark)', letterSpacing: '1.5px' }}>
-                                                IN TRANSITO
-                                            </p>
+                                        {/* IMMAGINE */}
+                                        <div className="col-4 col-md-2">
+                                            <img
+                                                src={`http://localhost:3000/${item.img}`}
+                                                alt={item.name}
+                                                className="img-fluid rounded"
+                                                style={{ maxHeight: '80px', objectFit: 'contain' }}
+                                            />
                                         </div>
-                                    </div>
 
-                                    {/* Bottone Rimuovi */}
-                                    <div className="col-2 text-end">
-                                        <button
-                                            className="btn btn-link text-danger p-0"
-                                            onClick={() => removeFromCart(item.id)}
-                                            title="Rimuovi"
-                                        >
-                                            <i className="bi bi-trash3 fs-5"></i>
-                                            <div className="small">remove</div>
-                                        </button>
+                                        {/* NOME PRODOTTO */}
+                                        <div className="col-8 col-md-4">
+                                            <h6 className="fw-bold mb-1">{item.name}</h6>
+                                            <p className="text-muted small mb-2">Prezzo unitario: €{Number(item.initial_price).toFixed(2)}</p>
+                                        </div>
+
+                                        {/* + / − AL POSTO DEL TOTALE PRODOTTO */}
+                                        <div className="col-12 col-md-3 text-md-end d-flex justify-content-md-end align-items-center gap-2">
+                                            <button
+                                                className="qty-btn btn btn-outline-secondary"
+                                                onClick={() => updateQuantity(item.id, -1)}
+                                                disabled={item.quantity <= 1}
+                                            >−</button>
+
+                                            <span className="fw-bold">{item.quantity}</span>
+
+                                            <button
+                                                className="qty-btn btn btn-outline-secondary"
+                                                onClick={() => updateQuantity(item.id, 1)}
+                                            >+</button>
+                                        </div>
+
+                                        {/* PULSANTE RIMUOVI */}
+                                        <div className="col-12 col-md-3 text-end">
+                                            <button className="btn btn-link text-danger p-0" onClick={() => removeFromCart(item.id)}>
+                                                <i className="bi bi-trash3 fs-5"></i>
+                                                <div className="small">rimuovi</div>
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                        <button className="btn btn-link text-muted mt-2 p-0" onClick={clearCart}>Svuota carrello</button>
-                    </div>
+                            ))}
+                            <button className="btn btn-link text-muted mt-2 p-0" onClick={clearCart}>Svuota carrello</button>
+                        </div>
 
-                    {/* Riepilogo (Rimane uguale) */}
-                    <div className="col-lg-4">
-                        <div className="card border-0 bg-light p-4 shadow-sm">
-                            <h4 className="fw-bold mb-4">Riepilogo</h4>
-                            <div className="d-flex justify-content-between mb-3">
-                                <span>Subtotale</span>
-                                <span>€{total.toFixed(2)}</span>
+                        {/* RIEPILOGO STILE SCONTRINO CON NOMI COMPLETI */}
+                        <div className="col-lg-4">
+                            <div className="card border-0 bg-light p-4 shadow-sm">
+                                <h4 className="fw-bold mb-4">Riepilogo</h4>
+
+                                {/* Lista prodotti */}
+                                <div className="cart-summary-list mb-3">
+                                    {cart.map(item => (
+                                        <div key={item.id} className="d-flex justify-content-between align-items-center mb-2">
+                                            <div style={{ wordBreak: 'break-word' }}>
+                                                <span className="fw-bold">{item.name}</span>
+                                                <span className="text-muted ms-2">x{item.quantity}</span>
+                                            </div>
+                                            <div>
+                                                €{(Number(item.initial_price) * item.quantity).toFixed(2)}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <hr />
+
+                                {/* Totale */}
+                                <div className="d-flex justify-content-between mb-3">
+                                    <span>Subtotale</span>
+                                    <span>€{total.toFixed(2)}</span>
+                                </div>
+                                <div className="d-flex justify-content-between mb-3 fw-bold fs-5">
+                                    <span>Totale</span>
+                                    <span>€{total.toFixed(2)}</span>
+                                </div>
+
+                                <button
+                                    className="btn btn-dark w-100 btn-lg mt-3"
+                                    onClick={() => setIsCheckoutVisible(true)}
+                                >
+                                    Procedi al Checkout
+                                </button>
                             </div>
-                            <div className="d-flex justify-content-between mb-3 fw-bold fs-5">
-                                <span>Totale</span>
-                                <span>€{total.toFixed(2)}</span>
-                            </div>
-                            <button className="btn btn-dark w-100 btn-lg mt-3">Procedi al Checkout</button>
                         </div>
                     </div>
-                </div>
+
+                    {/* FORM CHECKOUT */}
+                    <div className={`checkout-section-wrapper ${isCheckoutVisible ? 'show' : ''}`}>
+                        <CheckoutForm />
+                    </div>
+                </>
             )}
-            <CheckoutForm />
         </div>
-
-
     );
 }
