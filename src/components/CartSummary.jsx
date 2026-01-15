@@ -12,8 +12,10 @@ export default function CartSummary({ cart, total, onCheckout }) {
 
         axios.get(`http://localhost:3000/api/discount/${tempCode}`)
             .then((res) => {
+
                 setDiscountCode(res.data.code);
                 setDiscount(res.data.value);
+                console.log(discountCode, discount)
             })
             .catch((err) => {
                 console.error(err);
@@ -23,7 +25,7 @@ export default function CartSummary({ cart, total, onCheckout }) {
             });
     }
 
-    const totalAfterDiscount = discount ? total - discount : total;
+    const totalAfterDiscount = discount ? total - (total * discount / 100) : total;
 
     return (
         <div className="card border-0 bg-light p-4 shadow-sm">
@@ -70,7 +72,7 @@ export default function CartSummary({ cart, total, onCheckout }) {
 
             {discount && (
                 <div className="text-success mb-2 small">
-                    Codice <strong>{discountCode}</strong> applicato: -€{discount.toFixed(2)}
+                    Codice <strong>{discountCode}</strong> applicato: {discount}% di sconto inserito
                 </div>
             )}
 
