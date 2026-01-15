@@ -3,28 +3,9 @@ import { Link } from "react-router-dom";
 import CheckoutForm from "../components/CheckoutForm";
 import { useCart } from "../context/CartContext";
 
-import axios from "axios";
-
 export default function Cart() {
-    const { cart, removeFromCart, clearCart } = useCart();
-    const [tempCode, setTempCode] = useState("")
-    const [discount, setDiscount] = useState(false)
-
-    function controlCode() {
-        axios.get(`http://localhost:3000/api/discount/${tempCode}`)
-            .then((res) => {
-                console.log(res.data.value)
-                //setDiscount_Code(res.data.code)
-                //setDiscount(res.data.value)
-
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-
+    const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
     const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
-
 
     // Totale generale
     const total = cart.reduce(
@@ -127,18 +108,7 @@ export default function Cart() {
                                     <span>Totale</span>
                                     <span>€{total.toFixed(2)}</span>
                                 </div>
-                                <div className="d-flex align-items-center">
-                                    <div>
-                                        <input
-                                            type="text"
-                                            value={tempCode}
-                                            onChange={(e) => setTempCode(e.target.value)}
-                                            placeholder="invia codice sconto" />
-                                    </div>
-                                    <div>
-                                        <button className="btn btn-dark w-100 btn-sm " onClick={controlCode}>Invia</button>
-                                    </div>
-                                </div>
+
                                 <button
                                     className="btn btn-dark w-100 btn-lg mt-3"
                                     onClick={() => setIsCheckoutVisible(true)}
@@ -155,7 +125,6 @@ export default function Cart() {
                     </div>
                 </>
             )}
-            <CheckoutForm cart={cart} />
         </div>
     );
 }
