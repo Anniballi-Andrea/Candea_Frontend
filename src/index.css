@@ -1,8 +1,6 @@
 @import url('bootstrap');
 @import url('bootstrap-icons');
 
-
-
 /* ===== COLOR PALETTE ===== */
 :root {
     --green-main: #BFE3C0;
@@ -12,24 +10,33 @@
     --bg-light: #F8FFF9;
 }
 
-/* ===== RESET E STRUTTURA HEADER (RISPETTA I TUOI SPAZI) ===== */
+/* ===== RESET E STRUTTURA HEADER ===== */
 .custom-navbar {
     background-color: var(--bg-light) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding: 0 !important;
-    /* Reset padding Bootstrap */
     min-height: 72px;
-    /* Altezza simile al tuo originale */
+
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999;
 }
 
+body {
+    padding-top: 72px;
+}
+
+/* 🔴 FIX 1: rimosso flex-wrap che faceva andare a capo l’hamburger */
 .custom-navbar .container {
     max-width: 1200px;
-    /* Rispetta il tuo max-width */
     padding: 12px 20px !important;
-    /* I tuoi spazi originali */
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
 /* LOGO */
@@ -40,16 +47,13 @@
 
 .navbar-brand img {
     height: 48px;
-    /* La tua altezza originale */
 }
 
-/* BARRA DI RICERCA (Stessa larghezza e stile tuo) */
+/* BARRA DI RICERCA */
 .header-search-form {
     flex: 1;
     max-width: 360px;
-    /* Il tuo max-width originale */
     margin: 0 24px !important;
-    /* Il tuo gap originale */
 }
 
 .header-search-form .form-control {
@@ -74,10 +78,9 @@
     color: white;
 }
 
-/* NAV LINKS (Stile testo originale) */
+/* NAV LINKS */
 .custom-navbar .nav-link {
     font-size: 0.75rem !important;
-    /* Il tuo font-size originale */
     text-transform: uppercase;
     font-weight: 600;
     color: var(--green-text) !important;
@@ -86,7 +89,6 @@
 
 .navbar-nav {
     gap: 18px;
-    /* Il tuo gap originale */
 }
 
 /* SELECT CATEGORIE */
@@ -102,11 +104,13 @@
     cursor: pointer;
 }
 
-/* CARRELLO */
+/* CARRELLO HEADER */
 .header-cart-link {
     position: relative;
-    display: flex;
+    display: inline-flex;
+    /* inline-flex permette al badge di restare attaccato */
     align-items: center;
+    justify-content: center;
     margin-left: 12px;
 }
 
@@ -123,14 +127,17 @@
     color: white;
     font-size: 0.6rem;
     padding: 2px 6px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Struttura Principale */
+/* SLIDER / BANNER */
 .slider-container {
     position: relative;
     width: 100%;
     height: 540px;
-    /* Banner a tutto schermo */
     overflow: hidden;
     background-color: #000;
 }
@@ -163,7 +170,6 @@
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
 }
 
-/* Contenuti Testuali */
 .slide-content {
     position: absolute;
     text-align: center;
@@ -205,7 +211,7 @@
     transform: scale(1.05);
 }
 
-/* Navigazione (Frecce) */
+/* NAVIGAZIONE SLIDER */
 .nav-btn {
     position: absolute;
     top: 50%;
@@ -229,12 +235,6 @@
     background: rgba(255, 255, 255, 0.3);
 }
 
-.nav-btn .arrow {
-    font-size: 2.5rem;
-    line-height: 0;
-    margin-bottom: 5px;
-}
-
 .prev {
     left: 30px;
 }
@@ -243,7 +243,6 @@
     right: 30px;
 }
 
-/* Indicatori (Dots) */
 .dots-container {
     position: absolute;
     bottom: 40px;
@@ -266,15 +265,10 @@
 .dot.active {
     background: white;
     width: 30px;
-    /* Effetto pillola per la slide attiva */
     border-radius: 10px;
 }
 
-
-
-/* layout colonna */
-/* Layout colonna: deve essere flex per far allungare il contenuto */
-/* Container della griglia (assicurati che il padre sia un display: flex o grid) */
+/* PRODUCT CARDS */
 .product-col {
     height: 100%;
     display: flex;
@@ -284,7 +278,6 @@
     text-decoration: none;
     display: flex;
     width: 100%;
-    /* Rimuoviamo height: 100% se crea problemi e usiamo flex: 1 */
     flex: 1;
     color: inherit;
 }
@@ -293,144 +286,255 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* Altezza fissa o minima per tutte le card */
     min-height: 450px;
-    background-color: #BFE3C0;
+    background-color: var(--green-soft);
+    /* verde soft iniziale */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Wrapper immagine */
 .product-image-wrapper {
+    position: relative;
     width: 100%;
     height: 250px;
-    /* Altezza fissa per l'area immagine */
     padding: 16px;
     flex-shrink: 0;
+    background-color: var(--bg-light);
+    /* sfondo chiaro per immagine */
 }
+
+
+/* Immagine */
+
+.product-image-wrapper .bi-suit-heart {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    color: red;
+}
+
 
 .product-image {
     width: 100%;
     height: 100%;
-    /* Copre l'intero wrapper */
     object-fit: cover;
-    /* Taglia l'immagine senza distorcerla */
-    background-color: #F8FFF9;
     border-radius: 8px;
     display: block;
 }
 
+/* Corpo della card: testo e dettagli prodotto */
 .product-body {
     padding: 20px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    /* Occupa tutto lo spazio rimanente */
+    background-color: var(--green-soft);
+    /* verde soft iniziale */
+    color: var(--green-text);
+    transition: background-color 0.3s ease;
 }
 
+/* Al passaggio del mouse sulla card, il body diventa verde scuro */
+.product-card:hover .product-body {
+    background-color: var(--green-dark);
+    color: var(--bg-light);
+    /* testo chiaro sullo sfondo scuro */
+}
+
+/* Titolo */
 .product-title {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 4px;
-    color: #1F3D2B;
-
-    /* BLOCCA IL TITOLO A 2 RIGHE */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    height: 2.8rem;
-    /* Altezza fissa basata sul line-height */
+    color: inherit;
+    /* eredita colore dal body */
 }
 
+/* Categorie */
 .product-categories {
     font-size: 0.85rem;
-    color: #4F6F5A;
-    /* Evita che troppe categorie allunghino la card */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: inherit;
+    /* cambia colore automaticamente al hover */
 }
 
+/* Prezzo */
 .product-price {
     margin-top: auto;
-    /* Spinge il prezzo sempre in fondo */
     padding-top: 10px;
     text-align: right;
     font-size: 1.4rem;
-    font-weight: 300;
-    color: #2E6B3F;
+    font-weight: 700;
+    color: var(--green-text);
+    /* rimane visibile anche su hover */
 }
 
-
-.cart-item-row {
-    transition: all 0.2s ease;
-    border: 1px solid #eee !important;
+.product-card:hover .product-price {
+    color: var(--green-main);
+    /* evidenzia il prezzo quando body scuro */
 }
 
-.cart-item-row:hover {
-    border-color: var(--green-main) !important;
-}
-
-.shipping-tracker .progress {
-    background-color: #e9ecef;
-    overflow: visible;
-    /* Necessario per l'icona sopra la linea */
-}
-
-.shipping-tracker i.bi-truck {
-    z-index: 2;
-}
-
-/* Stile per il testo "remove" sotto l'icona cestino */
-.btn-link .small {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    text-decoration: none;
-}
-
+/* ===== CART ITEMS ===== */
 .cart-item-row {
     background-color: #ffffff;
     border-radius: 12px;
     border: 1px solid var(--green-main) !important;
-    /* Uso il tuo verde chiaro per il bordo */
     transition: all 0.3s ease;
 }
 
 .cart-item-row:hover {
     border-color: var(--green-soft) !important;
     box-shadow: 0 4px 15px rgba(46, 107, 63, 0.1) !important;
-    /* Ombra leggermente verdastra */
 }
 
-/* Stile per il tasto remove */
-.btn-remove-container {
+.cart-product-img {
+    max-height: 80px;
+    object-fit: contain;
+}
+
+/* QUANTITY CONTROL */
+.quantity-control {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    color: #dc3545;
-    /* Mantengo il rosso per il pericolo, o usa var(--green-dark) se vuoi tutto verde */
-    cursor: pointer;
-    transition: opacity 0.2s;
+    gap: 10px;
 }
 
-.btn-remove-container:hover {
-    opacity: 0.7;
-}
-
-.btn-remove-text {
-    font-size: 0.6rem;
-    text-transform: uppercase;
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid var(--green-main);
+    background-color: var(--bg-light);
+    color: var(--green-dark);
     font-weight: 700;
-    margin-top: -2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-/* ===== FOOTER ===== */
+.qty-btn:hover {
+    background-color: var(--green-main);
+}
+
+.qty-value {
+    min-width: 28px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* CHECKOUT FORM STYLE */
+.checkout-card {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    border: 1px solid var(--green-main);
+    box-shadow: 0 10px 30px rgba(46, 107, 63, 0.05);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.checkout-title {
+    color: var(--green-dark);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.custom-label {
+    color: var(--green-text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.custom-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--green-main);
+    border-radius: 12px;
+    background-color: var(--bg-light);
+    color: var(--green-text);
+    transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+    outline: none;
+    border-color: var(--green-dark);
+    background-color: white;
+    box-shadow: 0 0 0 4px rgba(191, 227, 192, 0.4);
+}
+
+.discount-box {
+    background-color: var(--bg-light);
+    border: 2px dashed var(--green-soft);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.btn-checkout-submit {
+    background-color: var(--green-dark);
+    color: white;
+    border: none;
+    padding: 16px 45px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* ANIMAZIONE CHECKOUT */
+.checkout-section-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.checkout-section-wrapper.show {
+    max-height: 2000px;
+    opacity: 1;
+    transform: translateY(0);
+    margin-top: 40px;
+    padding-bottom: 40px;
+}
+
+.cart-summary-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cart-summary-list div {
+    font-size: 0.95rem;
+    white-space: normal;
+    /* permette il wrap delle righe lunghe */
+}
+
+.cart-summary-list span.fw-bold {
+    display: inline;
+    /* non tronca più */
+}
+
+.cart-summary-list span.text-muted {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+/* FOOTER */
 .footer {
     background-color: var(--green-dark);
     color: #EAF6EE;
-    padding: 48px 20px 24px;
+    padding: 35px 20px 20px;
     margin-top: 64px;
 }
 
@@ -438,24 +542,20 @@
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    /* Di base gli elementi vanno uno sotto l'altro (Mobile) */
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 32px;
+    gap: 25px;
 }
 
-/* LOGO */
 .footer-logo img {
-    height: 42px;
-    display: block;
+    height: 30px;
+    opacity: 0.9;
 }
 
-/* NAV */
 .footer-nav {
     list-style: none;
     display: flex;
-    /* Su mobile i link vanno in colonna o si avvolgono */
     flex-direction: column;
     gap: 16px;
     padding: 0;
@@ -465,227 +565,102 @@
 .footer-nav a {
     color: #EAF6EE;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     font-weight: 600;
-    opacity: 0.85;
-    transition: opacity 0.2s ease;
+    opacity: 0.8;
+    transition: all 0.2s ease;
 }
 
-/* SOCIAL */
+.footer-nav a:hover {
+    opacity: 1;
+    color: var(--green-main);
+}
+
 .footer-social {
     display: flex;
-    gap: 24px;
+    gap: 20px;
 }
 
 .footer-social a {
     color: #EAF6EE;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     transition: transform 0.2s ease;
 }
 
-/* --- MEDIA QUERY PER DESKTOP --- */
+.footer-social a:hover {
+    transform: translateY(-3px);
+    color: var(--green-main);
+}
+
+.footer-bottom {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(234, 246, 238, 0.1);
+    text-align: center;
+    font-size: 0.7rem;
+    opacity: 0.5;
+}
+
+/* MEDIA QUERY */
 @media (min-width: 768px) {
     .footer-container {
-        /* Torna in orizzontale su schermi grandi */
         flex-direction: row;
         justify-content: space-between;
         text-align: left;
     }
 
     .footer-nav {
-        /* I link tornano affiancati */
         flex-direction: row;
-        gap: 24px;
-    }
-
-    .footer-bottom {
-        text-align: center;
-        /* Opzionale, puoi tenerlo al centro */
+        gap: 30px;
     }
 }
 
-.footer-bottom {
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(234, 246, 238, 0.1);
-    /* Una linea sottile per separare */
-    text-align: center;
-    font-size: 0.75rem;
-    opacity: 0.6;
-}
-
-/* Media query per Tablet e Desktop */
-@media (min-width: 576px) {
-    .carousel-item {
-        flex: 0 0 calc(50% - 1rem);
-        /* 2 prodotti visibili */
-    }
-}
-
-@media (min-width: 992px) {
-    .carousel-item {
-        flex: 0 0 calc(25% - 1.2rem);
-        /* 4 prodotti visibili */
-    }
-}
-
-/* Responsive: Nasconde il sottotitolo su schermi molto piccoli (opzionale) */
-@media (max-width: 480px) {
-    .banner-subtitle {
-        display: none;
-    }
-
-    .banner-title {
-        font-size: 1.5rem;
-    }
-}
-
-/* ============================================================
-   RESPONSIVE HEADER ADJUSTMENTS
-   ============================================================ */
-
-/* 1. COMPORTAMENTO GENERALE MOBILE (Sotto i 991px) */
 @media (max-width: 991.98px) {
+    body {
+        padding-top: 130px;
+    }
+
     .custom-navbar .container {
         padding: 10px 15px !important;
-        flex-wrap: wrap;
-        /* Permette alla ricerca di andare a capo se necessario */
-    }
-
-    /* La barra di ricerca si adatta allo spazio o va sotto */
-    .header-search-form {
-        order: 3;
-        /* Sposta la ricerca sotto logo e hamburger */
-        max-width: 100%;
-        width: 100%;
-        margin: 10px 0 5px 0 !important;
-        flex: none;
-    }
-
-    /* Il menu a comparsa (hamburger) */
-    .navbar-collapse {
-        order: 4;
-        background-color: var(--bg-light);
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        margin-top: 10px;
-    }
-
-    .navbar-nav {
-        gap: 15px;
-        /* Riduciamo il gap tra i link */
-        align-items: flex-start !important;
-        /* Allinea a sinistra nel menu mobile */
-    }
-
-    /* Sistemiamo la select categorie su mobile */
-    .nav-select {
-        width: 100%;
-        padding: 8px;
     }
 
     .header-cart-link {
         margin-left: 0;
-        padding: 10px 0 !important;
+        /* evita che si sposti lontano */
+    }
+
+    .header-cart-link .badge {
+        top: -6px;
+        right: -6px;
+        /* leggero aggiustamento se necessario su mobile */
+    }
+
+    .header-search-form {
+        max-width: 100%;
+        width: 100%;
+        margin: 10px 0 5px 0 !important;
+    }
+
+    .navbar-collapse {
+        background-color: var(--bg-light);
+        padding: 16px;
+        border-radius: 12px;
+        margin-top: 12px;
+    }
+
+    .cart-product-img {
+        max-height: 70px;
+    }
+
+    .quantity-control {
+        margin-top: 6px;
     }
 }
 
-/* 2. SPECIFICO PER TELEFONO (Sotto i 576px) */
-@media (max-width: 575.98px) {
-    .navbar-brand img {
-        height: 35px;
-        /* Logo leggermente più piccolo su smartphone */
-    }
-
-    .slide-title {
-        font-size: 2rem !important;
-        /* Titolo banner più piccolo */
-    }
-
-    /* Se hai troppi elementi, nascondiamo i testi meno importanti o riduciamo i font */
-    .custom-navbar .nav-link {
-        font-size: 0.85rem !important;
-        /* Leggermente più grande per facilitare il touch */
-    }
-}
-
-/* 3. AGGIUSTAMENTO PULSANTE HAMBURGER */
-.navbar-toggler {
-    border: 1px solid var(--green-main);
-    padding: 4px 8px;
-}
-
-.navbar-toggler:focus {
-    box-shadow: 0 0 0 0.25rem rgba(191, 227, 192, 0.5);
-    /* Glow verde quando cliccato */
-}
-
-/* 4. FIX PER LE CARD PRODOTTI SU MOBILE */
-@media (max-width: 767.98px) {
-    .product-card {
-        min-height: auto;
-        /* Rimuoviamo l'altezza fissa per evitare spazi vuoti enormi */
-        margin-bottom: 20px;
-    }
-
-    .product-image-wrapper {
-        height: 200px;
-        /* Immagini un po' più basse su mobile */
-    }
-}
-
-/* Impedisce a tutto il sito di scorrere a destra per errore */
+/* FIX FINALI */
 html,
 body {
     max-width: 100%;
     overflow-x: hidden;
-}
-
-/* Fix per il container della ricerca */
-.search-container-fluid {
-    min-width: 0;
-    /* Importante per flexbox su mobile */
-    max-width: 100%;
-}
-
-/* Modifica la tua classe header-search-form esistente */
-.header-search-form {
-    display: flex;
-    width: 100%;
-    max-width: 100%;
-    /* Evita che superi lo schermo */
-    margin: 0 !important;
-    /* Rimuoviamo i margini che spingono fuori */
-}
-
-/* Ridimensiona l'input della ricerca su telefoni molto piccoli */
-@media (max-width: 576px) {
-    .header-search-form .form-control {
-        padding: 5px 8px;
-        font-size: 0.85rem;
-    }
-
-    .navbar-brand {
-        margin-right: 5px !important;
-    }
-
-    .navbar-brand img {
-        height: 30px;
-        /* Logo più piccolo per far stare la ricerca */
-    }
-}
-
-/* Miglioriamo l'aspetto del menu a tendina su mobile */
-@media (max-width: 991px) {
-    .navbar-collapse {
-        background-color: var(--bg-light);
-        border-top: 1px solid var(--green-main);
-        padding: 15px;
-        margin-left: -15px;
-        /* Compensa il padding del container */
-        margin-right: -15px;
-        width: calc(100% + 30px);
-    }
 }
