@@ -90,6 +90,12 @@ export default function Header() {
                         </li>
 
                         <li className="nav-item">
+                            <Link className="nav-link header-cart-link" to="/wish_list">
+                                <i className="bi bi-suit-heart"></i>
+                            </Link>
+                        </li>
+
+                        <li className="nav-item">
                             <Link className="nav-link header-cart-link" to="/cart">
                                 <i className="bi bi-bag"></i>
                                 {uniqueItemsCount > 0 && (

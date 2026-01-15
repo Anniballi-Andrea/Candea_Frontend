@@ -6,6 +6,7 @@ import CategoryProduct from "./pages/CategoryProduct";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Products from "./pages/Products";
+import WishList from "./pages/WishList";
 
 
 
@@ -21,6 +22,7 @@ function App() {
             <Route path="/products/:slug" element={<ProductDetail />} />
             <Route path="/products" element={<CategoryProduct />} />
             <Route path="/products/category" element={<CategoryProduct />} />
+            <Route path="/wish_list" element={<WishList />} />
             <Route path="/cart" element={<Cart />} />
           </Route>
         </Routes>
