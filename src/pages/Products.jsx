@@ -39,57 +39,70 @@ export default function Products() {
 		<div className="container p-5 text-center">
 			<h1>Lista prodotti</h1>
 
-			<form className="d-flex" onSubmit={handleSubmit}>
-				<h4>Ordina per: </h4>
-				<button
-					type="button"
-					onClick={() => {
-						console.log(searchParams);
+			<form
+				className="d-flex justify-content-center align-items-center"
+				onSubmit={handleSubmit}
+			>
+				<h5 className="mt-2 me-1">Ordina per: </h5>
+				<div className="btn-group me-1">
+					<button
+						type="button"
+						className="btn btn-primary"
+						onClick={() => {
+							console.log(searchParams);
 
-						setSortBy("price");
-					}}
-				>
-					Prezzo
-				</button>
-				<button
-					type="button"
-					onClick={() => {
-						console.log(searchParams);
+							setSortBy("price");
+						}}
+					>
+						Prezzo
+					</button>
+					<button
+						type="button"
+						className="btn btn-primary"
+						onClick={() => {
+							console.log(searchParams);
 
-						setSortBy("name");
-					}}
-				>
-					Alfabetica
-				</button>
-				<button
-					type="button"
-					onClick={() => {
-						console.log(searchParams);
-						setSortBy("recent");
-					}}
-				>
-					Recenti
-				</button>
-				<button
-					type="button"
-					onClick={() => {
-						setOrder("asc");
-					}}
-				>
-					Asc
-				</button>
-				<button
-					type="button"
-					onClick={() => {
-						console.log(searchParams);
+							setSortBy("name");
+						}}
+					>
+						Alfabetica
+					</button>
+					<button
+						type="button"
+						className="btn btn-primary"
+						onClick={() => {
+							console.log(searchParams);
+							setSortBy("recent");
+						}}
+					>
+						Recenti
+					</button>
+				</div>
+				<div className="btn-group me-1">
+					<button
+						type="button"
+						className="btn btn-primary"
+						onClick={() => {
+							setOrder("asc");
+						}}
+					>
+						Asc
+					</button>
+					<button
+						type="button"
+						className="btn btn-primary"
+						onClick={() => {
+							console.log(searchParams);
 
-						setOrder("desc");
-					}}
-				>
-					Desc
+							setOrder("desc");
+						}}
+					>
+						Desc
+					</button>
+				</div>
+				<button type="submit" className="btn btn-primary">
+					Filtra
 				</button>
-
-				<button type="submit">Filtra</button>
 			</form>
 
 			<div className="my-3 row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
