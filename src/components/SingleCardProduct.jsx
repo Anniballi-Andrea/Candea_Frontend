@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useWishlist } from "../context/WishlistContext";
 
 export default function SingleCardProduct({ product }) {
 

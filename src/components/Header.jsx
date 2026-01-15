@@ -90,7 +90,7 @@ export default function Header() {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link header-cart-link" to="/wish_list">
+                            <Link className="nav-link header-cart-link" to="/wishlist">
                                 <i className="bi bi-suit-heart"></i>
                             </Link>
                         </li>
