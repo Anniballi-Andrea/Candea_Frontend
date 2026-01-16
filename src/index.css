@@ -562,6 +562,74 @@ body {
     color: #6c757d;
 }
 
+form {
+    background-color: var(--bg-light);
+    padding: 14px 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(46, 107, 63, 0.12);
+    gap: 8px;
+}
+
+form h5 {
+    color: var(--green-text);
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.btn-group .btn,
+form>.btn {
+    background-color: var(--green-main);
+    color: var(--green-text);
+    border: none;
+    font-weight: 500;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+
+/* Hover */
+.btn-group .btn:hover,
+form>.btn:hover {
+    background-color: var(--green-soft);
+    transform: translateY(-1px);
+}
+
+/* Click */
+.btn-group .btn:active,
+form>.btn:active {
+    background-color: var(--green-dark);
+    color: white;
+    transform: scale(0.97);
+}
+
+.btn-group {
+    background-color: rgba(191, 227, 192, 0.35);
+    padding: 4px;
+    border-radius: 12px;
+}
+
+form>.btn {
+    background-color: var(--green-dark);
+    color: white;
+    padding: 8px 18px;
+}
+
+form>.btn:hover {
+    background-color: #245732;
+}
+
+.btn.active {
+    background-color: var(--green-dark) !important;
+    color: white !important;
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(46, 107, 63, 0.25);
+}
+
+.btn:not(.active):hover {
+    background-color: var(--green-soft);
+    color: var(--green-text);
+    transform: translateY(-1px);
+}
+
 /* FOOTER */
 .footer {
     background-color: var(--green-dark);
@@ -633,6 +701,9 @@ body {
     font-size: 0.7rem;
     opacity: 0.5;
 }
+
+
+
 
 /* MEDIA QUERY */
 @media (min-width: 768px) {
