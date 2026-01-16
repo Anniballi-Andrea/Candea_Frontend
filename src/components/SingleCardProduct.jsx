@@ -24,18 +24,19 @@ export default function SingleCardProduct({ product }) {
 		<div className="product-col">
 			<Link to={`/products/${product.slug}`} className="product-link">
 				<div className="product-card">
+					<i
+						className={`bi ${isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"}`}
+						onClick={(e) => {
+							e.preventDefault();
+							if (isLiked(product.id)) {
+								removeFromWishlist(product.id);
+							} else {
+								addToWishlist(product);
+							}
+						}}
+					></i>
 					<div className="product-image-wrapper">
-						<i
-							className={`bi ${isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"}`}
-							onClick={(e) => {
-								e.preventDefault();
-								if (isLiked(product.id)) {
-									removeFromWishlist(product.id);
-								} else {
-									addToWishlist(product);
-								}
-							}}
-						></i>
+
 						<img
 							src={`http://localhost:3000/${product.img}`}
 							alt={product.name}
