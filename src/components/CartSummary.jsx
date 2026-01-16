@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function CartSummary({ cart, total, setCode, onCheckout, code }) {
-	const { discount_code, setDiscount_Code } = useCart()
+	const { discount_code, setDiscount_Code, orderData, SetOrderData } = useCart()
 
 	const [tempCode, setTempCode] = useState("");
 	const [discount, setDiscount] = useState(false);
@@ -40,6 +40,8 @@ export default function CartSummary({ cart, total, setCode, onCheckout, code }) 
 	const shipping = Number(shippingCost);
 	const grandTotal = subtotal + shipping;
 	const totalPrice = Number(totalAfterDiscount) + shipping
+
+	useEffect(() => { SetOrderData({ ...orderData, total: totalPrice }) }, [totalPrice])
 
 	return (
 		<div className="card border-0 bg-light p-4 shadow-sm">

@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutForm({ discountCode }) {
-	const { cart, clearCart, discount_code } = useCart();
+	const { cart, clearCart, discount_code, SetOrderData, orderData } = useCart();
 
 
 	const initialCheckoutForm = {
@@ -31,7 +32,7 @@ export default function CheckoutForm({ discountCode }) {
 			[id]: value,
 		});
 	};
-
+	const navigate = useNavigate()
 	function handleSubmit(e) {
 		e.preventDefault();
 		console.log("Dati inviati:", checkoutForm);
@@ -49,13 +50,16 @@ export default function CheckoutForm({ discountCode }) {
 			products,
 		};
 
-		console.log(data)
+		//console.log(data)
 
 		axios
 			.post(`http://localhost:3000/api/orders`, data)
 			.then((res) => {
+				const newData = { ...data, cart }
+				SetOrderData({ ...orderData, ...newData })
 				setCheckoutForm(initialCheckoutForm);
 				clearCart()
+				navigate("/summary_order")
 			})
 			.catch((err) => {
 				console.log(err);

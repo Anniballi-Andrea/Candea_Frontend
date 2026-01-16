@@ -3,12 +3,13 @@ import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { SearchProvider } from "./context/SearchContext";
 import DefaultLayout from "./layout/DefaultLayout";
-import Cart from "./pages/cart";
+import Cart from "./pages/Cart";
 import Wish from "./pages/Wish";
 import CategoryProduct from "./pages/CategoryProduct";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Products from "./pages/Products";
+import SummaryOrder from "./pages/SummaryOrder";
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 								/>
 								<Route path="/cart" element={<Cart />} />
 								<Route path="/wishlist" element={<Wish />} />
+								<Route path="/summary_order" element={<SummaryOrder />} />
 							</Route>
 						</Routes>
 					</BrowserRouter>
