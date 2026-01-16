@@ -711,6 +711,16 @@ body {
         flex-direction: row;
         gap: 30px;
     }
+
+    .products-filter {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .products-filter h5 {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 @media (max-width: 991.98px) {
