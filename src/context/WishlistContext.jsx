@@ -30,12 +30,17 @@ export function WishlistProvider({ children }) {
         })
     }
 
+    const isLiked = (id) => wishlist.some((item) => item.id === id);
+    const wishlistCount = wishlist.length;
+
     return (
         <WishlistContext.Provider
             value={{
                 wishlist,
                 addToWishlist,
                 removeFromWishlist,
+                isLiked,
+                wishlistCount,
             }}
         >
             {children}
