@@ -12,7 +12,7 @@ export default function Cart() {
 
 	// Calcolo totale generale per passarlo al Riepilogo
 	const total = cart.reduce(
-		(acc, item) => acc + Number(item.initial_price) * item.quantity,
+		(acc, item) => acc + Number(item.actual_price) * item.quantity,
 		0,
 	);
 

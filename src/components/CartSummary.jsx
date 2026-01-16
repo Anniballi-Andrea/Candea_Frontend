@@ -46,7 +46,7 @@ export default function CartSummary({ cart, total, setCode, onCheckout }) {
 							<span className="text-muted ms-2">x{item.quantity}</span>
 						</div>
 						<div>
-							€{(Number(item.initial_price) * item.quantity).toFixed(2)}
+							€{(Number(item.actual_price) * item.quantity).toFixed(2)}
 						</div>
 					</div>
 				))}
