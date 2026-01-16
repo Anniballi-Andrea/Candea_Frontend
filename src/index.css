@@ -391,6 +391,17 @@ body {
     /* rimane visibile anche su hover */
 }
 
+.product-price-init {
+    text-decoration: line-through;
+    margin-top: auto;
+    padding-top: 10px;
+    text-align: right;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--green-text);
+    /* rimane visibile anche su hover */
+}
+
 .product-card:hover .product-price {
     color: var(--green-main);
     /* evidenzia il prezzo quando body scuro */

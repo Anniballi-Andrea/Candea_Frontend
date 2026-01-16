@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function CheckoutForm({ discountCode }) {
+	const { cart, clearCart, discount_code } = useCart();
+
+
 	const initialCheckoutForm = {
 		first_name: "",
 		last_name: "",
@@ -13,11 +16,12 @@ export default function CheckoutForm({ discountCode }) {
 		street: "",
 		street_number: "",
 		zip_code: "",
-		discount_code_id: discountCode.discount_code_id || null,
+		discount_code_id: discount_code.id || null,
 	};
 
+	//console.log(initialCheckoutForm)
+
 	const [checkoutForm, setCheckoutForm] = useState(initialCheckoutForm);
-	const { cart, clearCart } = useCart();
 
 	// Gestore universale per tutti gli input
 	const handleChange = (e) => {
@@ -41,8 +45,11 @@ export default function CheckoutForm({ discountCode }) {
 
 		const data = {
 			...checkoutForm,
+			discount_code_id: discount_code.id,
 			products,
 		};
+
+		console.log(data)
 
 		axios
 			.post(`http://localhost:3000/api/orders`, data)
