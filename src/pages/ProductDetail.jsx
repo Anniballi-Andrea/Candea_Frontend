@@ -118,9 +118,26 @@ export default function ProductDetail() {
 
                     {/* PREZZO E AGGIUNGI */}
                     <div className="d-flex justify-content-between align-items-end">
-                        <h2 className="display-6 fw-light">
-                            €{(quantity * parseFloat(product.initial_price)).toFixed(2)}
-                        </h2>
+                        {product.initial_price !== product.actual_price ? (
+                            <>
+                                <div className="d-flex justify-content-start ">
+                                    <h2 className="display-6 fw-light text-decoration-line-through text-muted">
+                                        €{product.initial_price}
+                                    </h2>
+                                    <h2 className="display-6 fw-light px-3">
+                                        €{(quantity * parseFloat(product.actual_price)).toFixed(2)}
+                                    </h2>
+                                </div>
+                            </>
+
+                        ) : (
+                            <>
+                                <h2 className="display-6 fw-light">
+                                    €{(quantity * parseFloat(product.actual_price)).toFixed(2)}
+                                </h2>
+                            </>
+                        )}
+
 
                         <div className="position-relative">
                             <button
