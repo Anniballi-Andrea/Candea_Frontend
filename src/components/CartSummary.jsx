@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useCart } from "../context/CartContext";
 
-export default function CartSummary({ cart, total, setCode, onCheckout }) {
+export default function CartSummary({ cart, total, setCode, onCheckout, code }) {
+	const { discount_code, setDiscount_Code } = useCart()
+
 	const [tempCode, setTempCode] = useState("");
 	const [discount, setDiscount] = useState(false);
 	const [discountCode, setDiscountCode] = useState("");
@@ -14,9 +17,10 @@ export default function CartSummary({ cart, total, setCode, onCheckout }) {
 			.get(`http://localhost:3000/api/discount/${tempCode}`)
 			.then((res) => {
 				setDiscountCode(res.data.code);
+				setDiscount_Code(res.data);
 				setDiscount(res.data.value);
 				setCode(res.data);
-				console.log(discountCode, discount);
+				//console.log(discountCode, discount, code);
 			})
 			.catch((err) => {
 				console.error(err);
@@ -78,7 +82,7 @@ export default function CartSummary({ cart, total, setCode, onCheckout }) {
 
 			{discount && (
 				<div className="text-success mb-2 small">
-					Codice <strong>{discountCode}</strong> applicato: {discount}% di
+					Codice <strong>{discount_code.code}</strong> applicato: {discount_code.value}% di
 					sconto inserito
 				</div>
 			)}

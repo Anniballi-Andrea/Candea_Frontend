@@ -50,6 +50,7 @@ export default function Cart() {
 								cart={cart}
 								total={total}
 								setCode={setDiscountCode}
+								code={discountCode}
 								onCheckout={() => setIsCheckoutVisible(true)}
 							/>
 						</div>
