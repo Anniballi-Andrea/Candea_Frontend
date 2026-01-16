@@ -48,7 +48,7 @@ export default function SummaryOrder() {
                     </>
                 ))}
                 <div className="d-flex justify-content-end">
-                    <div>Totale:{total}</div>
+                    <div>Totale: €{total.toFixed(2)}</div>
                 </div>
 
 
