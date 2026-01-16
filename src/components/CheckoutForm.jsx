@@ -55,6 +55,7 @@ export default function CheckoutForm({ discountCode }) {
 			.post(`http://localhost:3000/api/orders`, data)
 			.then((res) => {
 				setCheckoutForm(initialCheckoutForm);
+				clearCart()
 			})
 			.catch((err) => {
 				console.log(err);
