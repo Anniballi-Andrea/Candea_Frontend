@@ -34,6 +34,13 @@ export default function CartSummary({ cart, total, setCode, onCheckout, code }) 
 		? total - (total * discount) / 100
 		: total;
 
+	const shippingCost = total >= 90 ? 0 : 5;
+
+	const subtotal = Number(total);
+	const shipping = Number(shippingCost);
+	const grandTotal = subtotal + shipping;
+	const totalPrice = Number(totalAfterDiscount) + shipping
+
 	return (
 		<div className="card border-0 bg-light p-4 shadow-sm">
 			<h4 className="fw-bold mb-4">Riepilogo</h4>
@@ -56,12 +63,17 @@ export default function CartSummary({ cart, total, setCode, onCheckout, code }) 
 				))}
 			</div>
 
+			<div className="d-flex justify-content-between">
+				<p className="fw-bold">Spedizione:</p>
+				{shippingCost === 0 ? <p className="text-success fw-bold">GRATUITA</p> : <p>€{shippingCost.toFixed(2)}</p>}
+			</div>
+
 			<hr />
 
 			{/* Subtotale */}
 			<div className="d-flex justify-content-between mb-3">
 				<span>Subtotale</span>
-				<span>€{total.toFixed(2)}</span>
+				<span>€{grandTotal.toFixed(2)}</span>
 			</div>
 
 			{/* Input Codice Sconto */}
@@ -89,7 +101,7 @@ export default function CartSummary({ cart, total, setCode, onCheckout, code }) 
 
 			<div className="d-flex justify-content-between mb-3 fw-bold fs-5 border-top pt-3">
 				<span>Totale</span>
-				<span>€{Math.max(0, totalAfterDiscount).toFixed(2)}</span>
+				<span>€{Math.max(0, totalPrice).toFixed(2)}</span>
 			</div>
 
 			<button className="btn btn-dark w-100 btn-lg mt-3" onClick={onCheckout}>
