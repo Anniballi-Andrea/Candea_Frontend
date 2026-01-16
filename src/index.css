@@ -322,11 +322,9 @@ body {
 .product-card>.bi-suit-heart-fill {
     display: block;
     margin-left: auto;
-    /* lo spinge a destra */
     margin-right: 10px;
     margin-top: 10px;
     font-size: 32px;
-    /* più grande */
     color: var(--green-text);
     cursor: pointer;
 }
@@ -352,7 +350,6 @@ body {
     flex-direction: column;
     flex-grow: 1;
     background-color: var(--green-soft);
-    /* verde soft iniziale */
     color: var(--green-text);
     transition: background-color 0.3s ease;
 }
@@ -361,7 +358,6 @@ body {
 .product-card:hover .product-body {
     background-color: var(--green-dark);
     color: var(--bg-light);
-    /* testo chiaro sullo sfondo scuro */
 }
 
 /* Titolo */
@@ -370,14 +366,12 @@ body {
     font-weight: 600;
     margin-bottom: 4px;
     color: inherit;
-    /* eredita colore dal body */
 }
 
 /* Categorie */
 .product-categories {
     font-size: 0.85rem;
     color: inherit;
-    /* cambia colore automaticamente al hover */
 }
 
 /* Prezzo */
@@ -388,7 +382,6 @@ body {
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--green-text);
-    /* rimane visibile anche su hover */
 }
 
 .product-price-init {
