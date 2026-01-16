@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useWishlist } from "../context/WishlistContext";
 
 export default function SingleCardProduct({ product }) {
-	const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+	const { wishlist, addToWishlist, removeFromWishlist, } = useWishlist();
 
 	const isLiked = (id) => {
 		for (let i = 0; i < wishlist.length; i++) {
@@ -25,7 +25,10 @@ export default function SingleCardProduct({ product }) {
 			<Link to={`/products/${product.slug}`} className="product-link">
 				<div className="product-card">
 					<i
-						className={`bi ${isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"}`}
+						className={`bi ${isLiked(product.id)
+							? "bi-suit-heart-fill"
+							: "bi-suit-heart"
+							}`}
 						onClick={(e) => {
 							e.preventDefault();
 							if (isLiked(product.id)) {

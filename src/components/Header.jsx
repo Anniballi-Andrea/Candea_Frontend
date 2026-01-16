@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 import Search from "./Search";
 
 export default function Header() {
@@ -10,6 +11,7 @@ export default function Header() {
     const [selected, setSelected] = useState("");
     const { cart } = useCart();
     const uniqueItemsCount = cart.length;
+    const { wishlistCount } = useWishlist()
 
     useEffect(() => {
         axios
@@ -91,7 +93,18 @@ export default function Header() {
 
                         <li className="nav-item">
                             <Link className="nav-link header-cart-link" to="/wishlist">
-                                <i className="bi bi-suit-heart"></i>
+                                <i
+                                    className={`bi ${wishlistCount > 0
+                                        ? "bi-suit-heart-fill"
+                                        : "bi-suit-heart"
+                                        }`}
+                                ></i>
+
+                                {wishlistCount > 0 && (
+                                    <span className="badge rounded-pill">
+                                        {wishlistCount}
+                                    </span>
+                                )}
                             </Link>
                         </li>
 
