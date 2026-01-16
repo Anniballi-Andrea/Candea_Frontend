@@ -286,7 +286,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    min-height: 450px;
+    min-height: 520px;
     background-color: var(--green-soft);
     /* verde soft iniziale */
     border-radius: 10px;
@@ -375,7 +375,20 @@ body {
 }
 
 /* Prezzo */
+
+
+.price-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: auto;
+    /* oppure 12px */
+}
+
 .product-price {
+    display: flex;
+    justify-content: flex-end;
     margin-top: auto;
     padding-top: 10px;
     text-align: right;
