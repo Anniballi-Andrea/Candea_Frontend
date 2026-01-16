@@ -41,7 +41,7 @@ export default function Products() {
 
 			<form
 
-				className="d-flex justify-content-center align-items-center"
+				className="products-filter d-flex justify-content-center align-items-center"
 				onSubmit={handleSubmit}>
 
 				<h5 className="mt-2 me-1">Ordina per: </h5>
