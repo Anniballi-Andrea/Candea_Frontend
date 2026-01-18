@@ -6,35 +6,35 @@ export default function CartSummary({ cart, total, onCheckout }) {
 	const { discountCode, setDiscountCode, orderData, setOrderData } = useCart();
 
 	const [tempCode, setTempCode] = useState("");
-	const [discount, setDiscount] = useState(false);
+	const [isDiscountValid, setIsDiscountValid] = useState(false);
+	const [discountErrorMessage, setDiscountErrorMessage] = useState("");
 
 	// Funzione per controllare il codice sconto
-	function controlCode() {
+	function checkCode() {
 		if (!tempCode) return;
 
 		axios
 			.get(`http://localhost:3000/api/discount/${tempCode}`)
 			.then((res) => {
 				setDiscountCode(res.data);
-				setDiscount(res.data.value);
+				setIsDiscountValid(true);
+				setDiscountErrorMessage("");
 			})
 			.catch((err) => {
 				console.error(err);
-				alert("Codice sconto non valido");
-				setDiscount(false);
+				setIsDiscountValid(false);
+				setDiscountErrorMessage("Codice sconto non valido");
 			});
 	}
 
-	const totalAfterDiscount = discount
-		? total - (total * discount) / 100
+	const totalAfterDiscount = isDiscountValid
+		? total - (total * discountCode.value) / 100
 		: total;
 
 	const shippingCost = total >= 90 ? 0 : 5;
 
-	const subtotal = Number(total);
-	const shipping = Number(shippingCost);
-	const grandTotal = subtotal + shipping;
-	const totalPrice = Number(totalAfterDiscount) + shipping;
+	const subTotal = total + shippingCost;
+	const totalPrice = totalAfterDiscount + shippingCost;
 
 	useEffect(() => {
 		setOrderData({ ...orderData, total: totalPrice });
@@ -74,7 +74,7 @@ export default function CartSummary({ cart, total, onCheckout }) {
 			{/* Subtotale */}
 			<div className="d-flex justify-content-between mb-3">
 				<span>Subtotale</span>
-				<span>€{grandTotal.toFixed(2)}</span>
+				<span>€{subTotal.toFixed(2)}</span>
 			</div>
 
 			{/* Input Codice Sconto */}
@@ -88,24 +88,35 @@ export default function CartSummary({ cart, total, onCheckout }) {
 						className="form-control form-control-sm"
 					/>
 				</div>
-				<button className="btn btn-dark btn-sm" onClick={controlCode}>
+				<button
+					type="button"
+					className="btn btn-dark btn-sm"
+					onClick={checkCode}
+				>
 					Invia
 				</button>
 			</div>
 
-			{discount && (
+			{isDiscountValid ? (
 				<div className="text-success mb-2 small">
 					Codice <strong>{discountCode.code}</strong> applicato:{" "}
 					{discountCode.value}% di sconto inserito
 				</div>
+			) : (
+				""
 			)}
+			<div className="text-danger mb-2 small">{discountErrorMessage}</div>
 
 			<div className="d-flex justify-content-between mb-3 fw-bold fs-5 border-top pt-3">
 				<span>Totale</span>
 				<span>€{Math.max(0, totalPrice).toFixed(2)}</span>
 			</div>
 
-			<button className="btn btn-dark w-100 btn-lg mt-3" onClick={onCheckout}>
+			<button
+				type="button"
+				className="btn btn-dark w-100 btn-lg mt-3"
+				onClick={onCheckout}
+			>
 				Procedi al Checkout
 			</button>
 		</div>
