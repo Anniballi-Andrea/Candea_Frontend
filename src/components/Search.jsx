@@ -3,12 +3,10 @@ import { useSearch } from "../context/SearchContext";
 
 export default function Search() {
 	const { search, setSearch } = useSearch();
-	// const [query, setQuery] = useState("")
 	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// console.log("QUERY:", search);
 		if (!search.trim()) return;
 
 		navigate(`/products_view?q=${encodeURIComponent(search)}`);
