@@ -18,20 +18,15 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 			.catch((err) => console.error("Errore categorie:", err));
 	}, []);
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-
+	useEffect(() => {
 		setSearchParams({ q: search, sortBy, order, category });
-	};
+	}, [search, sortBy, order, category]);
 
 	return (
-		<form
-			className="products-filter d-flex justify-content-center align-items-center"
-			onSubmit={handleSubmit}
-		>
-			<h5 className="mt-2 me-1">Ordina per: </h5>
+		<div className="products-filter">
+			{/* <h5 className="mt-2 me-1">Ordina per: </h5> */}
 
-			{/* <select
+			<select
 				className="form-select"
 				value={sortBy}
 				onChange={(e) => {
@@ -77,9 +72,9 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 				) : (
 					<i className="bi bi-sort-up"></i>
 				)}
-			</button> */}
+			</button>
 
-			<div className="btn-group me-1">
+			{/* <div className="btn-group me-1">
 				<button
 					type="button"
 					className={`btn btn-primary ${sortBy === "price" ? "active" : ""}`}
@@ -142,7 +137,7 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 
 			<button type="submit" className="btn btn-primary">
 				Filtra
-			</button>
-		</form>
+			</button> */}
+		</div>
 	);
 }

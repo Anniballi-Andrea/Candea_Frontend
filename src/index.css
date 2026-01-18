@@ -564,15 +564,22 @@ body {
 
 /* Contenitore del form */
 .products-filter {
-    background-color: var(--bg-light);
+    /* background-color: var(--bg-light); */
     padding: 14px 18px;
-    box-shadow: 0 6px 16px rgba(46, 107, 63, 0.12);
+    /* box-shadow: 0 6px 16px rgba(46, 107, 63, 0.12); */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: end;
     gap: 8px;
-    flex-wrap: wrap;
-    /* mobile-friendly */
+}
+
+.products-filter select {
+    max-width: 200px;
+    background-color: var(--green-main);
+    box-shadow: 0 6px 16px rgba(46, 107, 63, 0.12);
+    color: var(--green-text);
+    font-weight: 600;
+    margin-bottom: 0;
+    cursor: pointer;
 }
 
 /* Titolo “Ordina per” */
@@ -712,15 +719,6 @@ body {
         gap: 30px;
     }
 
-    .products-filter {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .products-filter h5 {
-        width: 100%;
-        text-align: center;
-    }
 }
 
 @media (max-width: 991.98px) {
@@ -763,6 +761,21 @@ body {
     .quantity-control {
         margin-top: 6px;
     }
+
+    .products-filter {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .products-filter h5 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .products-filter select {
+        max-width: 100%;
+    }
+
 }
 
 /* FIX FINALI */
