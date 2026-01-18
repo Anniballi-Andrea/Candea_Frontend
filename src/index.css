@@ -318,23 +318,6 @@ body {
     flex-direction: column;
 }
 
-.product-card>.bi-suit-heart,
-.product-card>.bi-suit-heart-fill {
-    display: block;
-    margin-left: auto;
-    margin-right: 10px;
-    margin-top: 10px;
-    font-size: 32px;
-    color: var(--green-text);
-    cursor: pointer;
-}
-
-.product-card>.bi-suit-heart:hover,
-.product-card>.bi-suit-heart-fill:hover {
-    transform: scale(1.2);
-    transition: 0.2s ease;
-}
-
 .product-image {
     width: 100%;
     height: 100%;
@@ -374,24 +357,44 @@ body {
     color: inherit;
 }
 
+/* Bottom */
+.product-bottom {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    text-align: right;
+
+}
+
+.product-bottom>.bi-suit-heart,
+.product-bottom>.bi-suit-heart-fill {
+    display: block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background-color: var(--bg-light);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    font-size: 24px;
+    color: var(--green-text);
+    cursor: pointer;
+}
+
+.product-bottom>.bi-suit-heart:hover,
+.product-bottom>.bi-suit-heart-fill:hover {
+    transform: scale(1.2);
+    transition: 0.2s ease;
+}
+
 /* Prezzo */
-
-
 .price-wrapper {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     gap: 10px;
-    margin-top: auto;
     /* oppure 12px */
 }
 
 .product-price {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: auto;
-    padding-top: 10px;
-    text-align: right;
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--green-text);
@@ -400,7 +403,6 @@ body {
 .product-price-init {
     text-decoration: line-through;
     margin-top: auto;
-    padding-top: 10px;
     text-align: right;
     font-size: 1.4rem;
     font-weight: 700;

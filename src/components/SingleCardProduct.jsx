@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useWishlist } from "../context/WishlistContext";
 
 export default function SingleCardProduct({ product }) {
-	const { wishlist, addToWishlist, removeFromWishlist, } = useWishlist();
+	const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
 	const isLiked = (id) => {
 		for (let i = 0; i < wishlist.length; i++) {
@@ -24,22 +24,7 @@ export default function SingleCardProduct({ product }) {
 		<div className="product-col">
 			<Link to={`/products/${product.slug}`} className="product-link">
 				<div className="product-card">
-					<i
-						className={`bi ${isLiked(product.id)
-							? "bi-suit-heart-fill"
-							: "bi-suit-heart"
-							}`}
-						onClick={(e) => {
-							e.preventDefault();
-							if (isLiked(product.id)) {
-								removeFromWishlist(product.id);
-							} else {
-								addToWishlist(product);
-							}
-						}}
-					></i>
 					<div className="product-image-wrapper">
-
 						<img
 							src={`http://localhost:3000/${product.img}`}
 							alt={product.name}
@@ -52,24 +37,32 @@ export default function SingleCardProduct({ product }) {
 							<h5 className="product-title">{capitalize(product.name)}</h5>
 							<p className="product-categories">{categoryList}</p>
 						</div>
-						{product.initial_price !== product.actual_price ? (
-							<>
+						<div className="product-bottom">
+							<i
+								className={`bi ${
+									isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"
+								}`}
+								onClick={(e) => {
+									e.preventDefault();
+									if (isLiked(product.id)) {
+										removeFromWishlist(product.id);
+									} else {
+										addToWishlist(product);
+									}
+								}}
+							></i>
+
+							{product.initial_price !== product.actual_price ? (
 								<div className="price-wrapper mr-4">
 									<div className="product-price-init">
 										€{product.initial_price}
 									</div>
-									<div className="product-price">
-										€{product.actual_price}
-									</div>
+									<div className="product-price">€{product.actual_price}</div>
 								</div>
-
-
-							</>
-						) : (
-							<>
+							) : (
 								<div className="product-price">€{product.actual_price}</div>
-							</>
-						)}
+							)}
+						</div>
 					</div>
 				</div>
 			</Link>
