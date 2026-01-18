@@ -19,9 +19,9 @@ export default function CheckoutForm() {
 		discount_code_id: discountCode.id || null,
 	};
 
-	//console.log(initialCheckoutForm)
-
 	const [checkoutForm, setCheckoutForm] = useState(initialCheckoutForm);
+
+	const navigate = useNavigate();
 
 	// Gestore universale per tutti gli input
 	const handleChange = (e) => {
@@ -31,7 +31,7 @@ export default function CheckoutForm() {
 			[id]: value,
 		});
 	};
-	const navigate = useNavigate();
+
 	function handleSubmit(e) {
 		e.preventDefault();
 		console.log("Dati inviati:", checkoutForm);
@@ -49,13 +49,10 @@ export default function CheckoutForm() {
 			products,
 		};
 
-		//console.log(data)
-
 		axios
 			.post(`http://localhost:3000/api/orders`, data)
 			.then((res) => {
-				const newData = { ...data, cart };
-				setOrderData({ ...orderData, ...newData });
+				setOrderData({ ...orderData, ...data, cart });
 				setCheckoutForm(initialCheckoutForm);
 				clearCart();
 				navigate("/summary_order");
@@ -75,7 +72,7 @@ export default function CheckoutForm() {
 						{/* --- SEZIONE ANAGRAFICA --- */}
 						<div className="col-md-6">
 							<label htmlFor="first_name" className="custom-label">
-								Nome
+								Nome *
 							</label>
 							<input
 								type="text"
@@ -90,7 +87,7 @@ export default function CheckoutForm() {
 
 						<div className="col-md-6">
 							<label htmlFor="last_name" className="custom-label">
-								Cognome
+								Cognome *
 							</label>
 							<input
 								type="text"
@@ -105,7 +102,7 @@ export default function CheckoutForm() {
 
 						<div className="col-md-8">
 							<label htmlFor="email" className="custom-label">
-								E-mail
+								E-mail *
 							</label>
 							<input
 								type="email"
@@ -120,7 +117,7 @@ export default function CheckoutForm() {
 
 						<div className="col-md-4">
 							<label htmlFor="phone_number" className="custom-label">
-								Cellulare
+								Cellulare *
 							</label>
 							<input
 								type="tel"
@@ -136,7 +133,7 @@ export default function CheckoutForm() {
 						{/* --- SEZIONE INDIRIZZO --- */}
 						<div className="col-md-6">
 							<label htmlFor="city" className="custom-label">
-								Città
+								Città *
 							</label>
 							<input
 								type="text"
@@ -151,7 +148,7 @@ export default function CheckoutForm() {
 
 						<div className="col-md-3">
 							<label htmlFor="province" className="custom-label">
-								Provincia
+								Provincia *
 							</label>
 							<input
 								type="text"
@@ -167,7 +164,7 @@ export default function CheckoutForm() {
 
 						<div className="col-md-3">
 							<label htmlFor="zip_code" className="custom-label">
-								CAP
+								CAP *
 							</label>
 							<input
 								type="text"
@@ -182,7 +179,7 @@ export default function CheckoutForm() {
 
 						<div className="col-md-9">
 							<label htmlFor="street" className="custom-label">
-								Via / Piazza
+								Via / Piazza *
 							</label>
 							<input
 								type="text"
@@ -197,7 +194,7 @@ export default function CheckoutForm() {
 
 						<div className="col-md-3">
 							<label htmlFor="street_number" className="custom-label">
-								Civico
+								N. Civico *
 							</label>
 							<input
 								type="number"
@@ -210,9 +207,10 @@ export default function CheckoutForm() {
 							/>
 						</div>
 					</div>
+					<div className="custom-label mt-2">* DATI OBBLIGATORI</div>
 
 					{/* --- BOTTONE INVIO --- */}
-					<div className="row mt-5">
+					<div className="row mt-4">
 						<div className="col-md-6 mx-auto">
 							<button type="submit" className="btn-checkout-submit">
 								EFFETTUA L'ORDINE
