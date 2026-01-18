@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearch } from "../context/SearchContext";
 
@@ -12,7 +11,7 @@ export default function Search() {
 		// console.log("QUERY:", search);
 		if (!search.trim()) return;
 
-		navigate(`/products_view?name=${encodeURIComponent(search)}`);
+		navigate(`/products_view?q=${encodeURIComponent(search)}`);
 		// setSearch("");
 	};
 

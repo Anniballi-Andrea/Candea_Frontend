@@ -14,8 +14,6 @@ export default function Products() {
 
 	const { search } = useSearch();
 
-	// console.log("URL SEARCH:", search);
-
 	useEffect(() => {
 		const endpoint = `http://localhost:3000/api/products`;
 
@@ -32,7 +30,7 @@ export default function Products() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		setSearchParams({ name: search, sortBy, order });
+		setSearchParams({ q: search, sortBy, order });
 	};
 
 	return (
@@ -40,10 +38,9 @@ export default function Products() {
 			<h1>Lista prodotti</h1>
 
 			<form
-
 				className="products-filter d-flex justify-content-center align-items-center"
-				onSubmit={handleSubmit}>
-
+				onSubmit={handleSubmit}
+			>
 				<h5 className="mt-2 me-1">Ordina per: </h5>
 				<div className="btn-group me-1">
 					<button
@@ -53,8 +50,8 @@ export default function Products() {
 							console.log(searchParams);
 
 							setSortBy("price");
-						}}>
-
+						}}
+					>
 						Prezzo
 					</button>
 
@@ -65,8 +62,8 @@ export default function Products() {
 							console.log(searchParams);
 
 							setSortBy("name");
-						}}>
-
+						}}
+					>
 						Alfabetica
 					</button>
 
@@ -76,11 +73,10 @@ export default function Products() {
 						onClick={() => {
 							console.log(searchParams);
 							setSortBy("recent");
-						}}>
-
+						}}
+					>
 						Recenti
 					</button>
-
 				</div>
 
 				<div className="btn-group me-1">
@@ -89,10 +85,9 @@ export default function Products() {
 						className={`btn btn-primary ${order === "asc" ? "active" : ""}`}
 						onClick={() => {
 							setOrder("asc");
-						}}>
-
+						}}
+					>
 						Asc
-
 					</button>
 
 					<button
@@ -102,25 +97,22 @@ export default function Products() {
 							console.log(searchParams);
 
 							setOrder("desc");
-						}}>
-
+						}}
+					>
 						Desc
-
 					</button>
-
 				</div>
 
 				<button type="submit" className="btn btn-primary">
 					Filtra
 				</button>
-
 			</form>
 
 			<div className="my-3 row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
 				{products
 					? products.map((prod, i) => (
-						<SingleCardProduct key={i} product={prod} />
-					))
+							<SingleCardProduct key={i} product={prod} />
+						))
 					: ""}
 			</div>
 		</div>
