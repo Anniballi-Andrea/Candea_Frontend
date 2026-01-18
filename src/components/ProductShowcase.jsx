@@ -11,7 +11,9 @@ export default function ProductShowcase({ title, products }) {
 						<SingleCardProduct key={prod.id} product={prod} />
 					))
 				) : (
-					<p>Nessun prodotto trovato.</p>
+					<div className="col-12">
+						<p>Nessun prodotto trovato.</p>
+					</div>
 				)}
 			</div>
 		</div>
