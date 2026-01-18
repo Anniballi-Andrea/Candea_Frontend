@@ -1,15 +1,35 @@
-import { useContext } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Bunner from "../components/Bunner";
-import ProductList from "../components/ProductList";
-import { ProductsContext } from "../context/ProductContext";
+import ProductShowcase from "../components/ProductShowcase";
 
 export default function Home() {
-	const { products, bestSellers } = useContext(ProductsContext);
+	const [products, setProducts] = useState([]);
+	const [bestSellers, setBestSellers] = useState([]);
+
+	useEffect(() => {
+		axios
+			.get(`http://localhost:3000/api/products?sortBy=recent&order=desc`)
+			.then((res) => setProducts(res.data))
+			.catch((err) => console.error("Errore prodotti: ", err));
+
+		axios
+			.get("http://localhost:3000/api/products/bySold")
+			.then((res) => setBestSellers(res.data))
+			.catch((err) => console.error("Errore bestsellers: ", err));
+	}, []);
 
 	return (
 		<>
 			<Bunner />
-			<ProductList products={products} bestSellers={bestSellers} />
+			<ProductShowcase
+				products={bestSellers.slice(0, 4)}
+				title={"Più venduti"}
+			/>
+			<ProductShowcase
+				products={products.slice(0, 4)}
+				title={"Ultimi arrivi"}
+			/>
 		</>
 	);
 }
