@@ -8,7 +8,6 @@ import { useCart } from "../context/CartContext";
 export default function Cart() {
 	const { cart, clearCart } = useCart();
 	const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
-	const [discountCode, setDiscountCode] = useState({});
 
 	// Calcolo totale generale per passarlo al Riepilogo
 	const total = cart.reduce(
@@ -37,6 +36,7 @@ export default function Cart() {
 							))}
 
 							<button
+								type="button"
 								className="btn btn-link text-muted mt-2 p-0"
 								onClick={clearCart}
 							>
@@ -49,8 +49,6 @@ export default function Cart() {
 							<CartSummary
 								cart={cart}
 								total={total}
-								setCode={setDiscountCode}
-								code={discountCode}
 								onCheckout={() => setIsCheckoutVisible(true)}
 							/>
 						</div>
@@ -60,7 +58,7 @@ export default function Cart() {
 					<div
 						className={`checkout-section-wrapper ${isCheckoutVisible ? "show" : ""} mt-5`}
 					>
-						{isCheckoutVisible && <CheckoutForm discountCode={discountCode} />}
+						{isCheckoutVisible && <CheckoutForm />}
 					</div>
 				</>
 			)}

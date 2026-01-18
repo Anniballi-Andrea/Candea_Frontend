@@ -2,12 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 
-export default function CartSummary({ cart, total, setCode, onCheckout, code }) {
-	const { discount_code, setDiscount_Code, orderData, SetOrderData } = useCart()
+export default function CartSummary({ cart, total, onCheckout }) {
+	const { discountCode, setDiscountCode, orderData, setOrderData } = useCart();
 
 	const [tempCode, setTempCode] = useState("");
 	const [discount, setDiscount] = useState(false);
-	const [discountCode, setDiscountCode] = useState("");
 
 	// Funzione per controllare il codice sconto
 	function controlCode() {
@@ -16,17 +15,13 @@ export default function CartSummary({ cart, total, setCode, onCheckout, code }) 
 		axios
 			.get(`http://localhost:3000/api/discount/${tempCode}`)
 			.then((res) => {
-				setDiscountCode(res.data.code);
-				setDiscount_Code(res.data);
+				setDiscountCode(res.data);
 				setDiscount(res.data.value);
-				setCode(res.data);
-				//console.log(discountCode, discount, code);
 			})
 			.catch((err) => {
 				console.error(err);
 				alert("Codice sconto non valido");
 				setDiscount(false);
-				setDiscountCode("");
 			});
 	}
 
@@ -39,9 +34,11 @@ export default function CartSummary({ cart, total, setCode, onCheckout, code }) 
 	const subtotal = Number(total);
 	const shipping = Number(shippingCost);
 	const grandTotal = subtotal + shipping;
-	const totalPrice = Number(totalAfterDiscount) + shipping
+	const totalPrice = Number(totalAfterDiscount) + shipping;
 
-	useEffect(() => { SetOrderData({ ...orderData, total: totalPrice }) }, [totalPrice])
+	useEffect(() => {
+		setOrderData({ ...orderData, total: totalPrice });
+	}, [totalPrice]);
 
 	return (
 		<div className="card border-0 bg-light p-4 shadow-sm">
@@ -58,16 +55,18 @@ export default function CartSummary({ cart, total, setCode, onCheckout, code }) 
 							<span className="fw-bold">{item.name}</span>
 							<span className="text-muted ms-2">x{item.quantity}</span>
 						</div>
-						<div>
-							€{(Number(item.actual_price) * item.quantity).toFixed(2)}
-						</div>
+						<div>€{(Number(item.actual_price) * item.quantity).toFixed(2)}</div>
 					</div>
 				))}
 			</div>
 
 			<div className="d-flex justify-content-between">
 				<p className="fw-bold">Spedizione:</p>
-				{shippingCost === 0 ? <p className="text-success fw-bold">GRATUITA</p> : <p>€{shippingCost.toFixed(2)}</p>}
+				{shippingCost === 0 ? (
+					<p className="text-success fw-bold">GRATUITA</p>
+				) : (
+					<p>€{shippingCost.toFixed(2)}</p>
+				)}
 			</div>
 
 			<hr />
@@ -96,8 +95,8 @@ export default function CartSummary({ cart, total, setCode, onCheckout, code }) 
 
 			{discount && (
 				<div className="text-success mb-2 small">
-					Codice <strong>{discount_code.code}</strong> applicato: {discount_code.value}% di
-					sconto inserito
+					Codice <strong>{discountCode.code}</strong> applicato:{" "}
+					{discountCode.value}% di sconto inserito
 				</div>
 			)}
 

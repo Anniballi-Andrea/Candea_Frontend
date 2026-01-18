@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
-export default function CheckoutForm({ discountCode }) {
-	const { cart, clearCart, discount_code, SetOrderData, orderData } = useCart();
-
+export default function CheckoutForm() {
+	const { cart, clearCart, discountCode, orderData, setOrderData } = useCart();
 
 	const initialCheckoutForm = {
 		first_name: "",
@@ -17,7 +16,7 @@ export default function CheckoutForm({ discountCode }) {
 		street: "",
 		street_number: "",
 		zip_code: "",
-		discount_code_id: discount_code.id || null,
+		discount_code_id: discountCode.id || null,
 	};
 
 	//console.log(initialCheckoutForm)
@@ -32,7 +31,7 @@ export default function CheckoutForm({ discountCode }) {
 			[id]: value,
 		});
 	};
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	function handleSubmit(e) {
 		e.preventDefault();
 		console.log("Dati inviati:", checkoutForm);
@@ -46,7 +45,7 @@ export default function CheckoutForm({ discountCode }) {
 
 		const data = {
 			...checkoutForm,
-			discount_code_id: discount_code.id,
+			discount_code_id: discountCode.id,
 			products,
 		};
 
@@ -55,11 +54,11 @@ export default function CheckoutForm({ discountCode }) {
 		axios
 			.post(`http://localhost:3000/api/orders`, data)
 			.then((res) => {
-				const newData = { ...data, cart }
-				SetOrderData({ ...orderData, ...newData })
+				const newData = { ...data, cart };
+				setOrderData({ ...orderData, ...newData });
 				setCheckoutForm(initialCheckoutForm);
-				clearCart()
-				navigate("/summary_order")
+				clearCart();
+				navigate("/summary_order");
 			})
 			.catch((err) => {
 				console.log(err);
