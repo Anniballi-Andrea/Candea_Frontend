@@ -137,9 +137,7 @@ body {
 /* Container principale per bloccare lo scroll orizzontale */
 .slider-container {
     position: relative;
-    width: 100%;
-    height: 100vh;
-    /* O l'altezza che preferisci */
+    height: 70vh;
     overflow: hidden;
 }
 
@@ -199,14 +197,12 @@ body {
     top: 50%;
     transform: translateY(-50%);
     background: rgba(31, 61, 43, 0.3);
-    /* Uso del tuo green-text con trasparenza */
     border: 1px solid var(--green-main);
     color: var(--green-main);
-    font-size: 2.5rem;
-    width: 60px;
-    height: 60px;
+    font-size: 4rem;
+    width: 50px;
+    height: 50px;
     display: flex;
-    /* Assicura che la freccia sia visibile */
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -216,11 +212,17 @@ body {
     /* Frecce circolari più moderne */
 }
 
+
 .nav-btn:hover {
     background: var(--green-dark);
     color: var(--bg-light);
     border-color: var(--green-dark);
     transform: translateY(-50%) scale(1.1);
+}
+
+.arrow {
+    height: 114px;
+    width: 20px;
 }
 
 .nav-btn.prev {
@@ -348,14 +350,11 @@ body {
 }
 
 .slide-subtitle {
-    font-size: 1.5rem;
-    /* Più piccolo del titolo ma leggibile */
-    font-weight: 300;
+    font-size: 2.5rem;
+    font-weight: 600;
     margin-bottom: 2.5rem;
-    color: var(--green-main);
-    /* Usiamo il tuo verde chiaro */
+    color: var(--green-text);
     max-width: 600px;
-    /* Evita che il testo si allarghi troppo */
     margin-left: auto;
     margin-right: auto;
 }
@@ -936,7 +935,6 @@ body {
     }
 
     .slide-subtitle {
-        font-size: 1rem;
         padding: 0 15px;
     }
 
