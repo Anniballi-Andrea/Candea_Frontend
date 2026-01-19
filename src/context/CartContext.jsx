@@ -5,6 +5,7 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
 	// Stato codice sconto
 	const [discountCode, setDiscountCode] = useState({});
+
 	const [orderData, setOrderData] = useState({});
 
 	// Carrello con localStorage
@@ -66,6 +67,7 @@ export function CartProvider({ children }) {
 				setDiscountCode,
 				orderData,
 				setOrderData,
+
 			}}
 		>
 			{children}
