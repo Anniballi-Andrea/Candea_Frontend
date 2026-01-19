@@ -385,6 +385,15 @@ body {
     transition: 0.2s ease;
 }
 
+.badge-position {
+    position: relative;
+    top: 60px;
+}
+
+.product-description {
+    height: 120px;
+}
+
 /* Prezzo */
 .price-wrapper {
     display: flex;

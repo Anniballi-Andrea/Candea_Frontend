@@ -16,6 +16,14 @@ export default function SingleCardProduct({ product }) {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 
+	function discountPerc(initial_price, actual_price) {
+		if (initial_price !== actual_price) {
+			const perc = ((initial_price - actual_price) / initial_price) * 100
+			return `${Math.floor(perc)}%`
+		}
+		return
+	}
+
 	const categoryList = product.categories
 		.map((cat) => capitalize(cat.name))
 		.join(", ");
@@ -33,15 +41,19 @@ export default function SingleCardProduct({ product }) {
 					</div>
 
 					<div className="product-body">
-						<div>
+						<div className="product-description">
 							<h5 className="product-title">{capitalize(product.name)}</h5>
 							<p className="product-categories">{categoryList}</p>
 						</div>
+
+						<div className="d-flex justify-content-end badge-position">
+							<span className="badge text-bg-success">{discountPerc(product.initial_price, product.actual_price)}</span>
+						</div>
+
 						<div className="product-bottom">
 							<i
-								className={`bi ${
-									isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"
-								}`}
+								className={`bi ${isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"
+									}`}
 								onClick={(e) => {
 									e.preventDefault();
 									if (isLiked(product.id)) {
@@ -57,10 +69,14 @@ export default function SingleCardProduct({ product }) {
 									<div className="product-price-init">
 										€{product.initial_price}
 									</div>
-									<div className="product-price">€{product.actual_price}</div>
+									<div className="product-price">
+										€{product.actual_price}
+									</div>
 								</div>
 							) : (
-								<div className="product-price">€{product.actual_price}</div>
+								<div className="price-wrapper mr-4">
+									<div className="product-price">€{product.actual_price}</div>
+								</div>
 							)}
 						</div>
 					</div>
