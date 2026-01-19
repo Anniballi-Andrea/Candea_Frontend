@@ -51,10 +51,12 @@ export default function CartSummary({ cart, total, onCheckout }) {
 						key={item.id}
 						className="d-flex justify-content-between align-items-center mb-2"
 					>
-						<div style={{ wordBreak: "break-word" }}>
+
+						<div className="cart-item-info">
 							<span className="fw-bold">{item.name}</span>
 							<span className="text-muted ms-2">x{item.quantity}</span>
 						</div>
+
 						<div>€{(Number(item.actual_price) * item.quantity).toFixed(2)}</div>
 					</div>
 				))}

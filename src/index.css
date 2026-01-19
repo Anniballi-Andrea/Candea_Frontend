@@ -345,7 +345,7 @@ body {
 
 /* Titolo */
 .product-title {
-    font-size: 1.1rem;
+    font-size: 2.1rem;
     font-weight: 600;
     margin-bottom: 4px;
     color: inherit;
@@ -362,8 +362,9 @@ body {
     margin-top: auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 12px;
     padding-top: 10px;
-    text-align: right;
 
 }
 
@@ -373,7 +374,6 @@ body {
     padding: 5px 10px;
     border-radius: 6px;
     background-color: var(--bg-light);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     font-size: 24px;
     color: var(--green-text);
     cursor: pointer;
@@ -389,7 +389,7 @@ body {
 .price-wrapper {
     display: flex;
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: center;
     gap: 10px;
     /* oppure 12px */
 }
@@ -408,6 +408,11 @@ body {
     font-weight: 700;
     color: var(--green-text);
     /* rimane visibile anche su hover */
+}
+
+.product-price,
+.product-price-init {
+    white-space: nowrap;
 }
 
 .product-card:hover .product-price {
@@ -431,6 +436,11 @@ body {
 .cart-product-img {
     max-height: 80px;
     object-fit: contain;
+}
+
+.cart-item-info {
+    word-break: break-word;
+    margin-right: 10px;
 }
 
 /* QUANTITY CONTROL */
@@ -547,12 +557,16 @@ body {
 .cart-summary-list {
     max-height: 300px;
     overflow-y: auto;
+    padding-right: 5px;
 }
 
-.cart-summary-list div {
-    font-size: 0.95rem;
-    white-space: normal;
-    /* permette il wrap delle righe lunghe */
+.cart-summary-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cart-summary-list::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
 }
 
 .cart-summary-list span.fw-bold {
