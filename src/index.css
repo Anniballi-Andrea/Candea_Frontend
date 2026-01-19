@@ -138,6 +138,7 @@ body {
 .slider-container {
     position: relative;
     height: 70vh;
+    /* compenso navbar fixed */
     overflow: hidden;
 }
 
@@ -146,9 +147,7 @@ body {
     display: flex;
     height: 100%;
     width: 100%;
-    /* CALCOLO DINAMICO: sposta il nastro in base all'indice */
     transform: translateX(calc(var(--current-slide) * -100%));
-    /* TRANSIZIONE FLUIDA */
     transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
@@ -173,19 +172,17 @@ body {
 /* Overlay e Contenuto */
 .slide-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.3);
-    /* Scurisce l'immagine per leggere meglio il testo */
 }
 
 .slide-content {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     color: white;
     z-index: 2;
@@ -194,35 +191,38 @@ body {
 /* Frecce di navigazione */
 .nav-btn {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(31, 61, 43, 0.3);
-    border: 1px solid var(--green-main);
-    color: var(--green-main);
-    font-size: 4rem;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+
     width: 50px;
     height: 50px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background: rgba(31, 61, 43, 0.3);
+    border: 1px solid var(--green-main);
+    border-radius: 50%;
     cursor: pointer;
     z-index: 10;
-    transition: all 0.3s ease;
-    border-radius: 50%;
-    /* Frecce circolari più moderne */
+
+    color: var(--green-main);
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 
 .nav-btn:hover {
     background: var(--green-dark);
     color: var(--bg-light);
-    border-color: var(--green-dark);
-    transform: translateY(-50%) scale(1.1);
+    transform: scale(1.1);
 }
 
 .arrow {
-    height: 114px;
-    width: 20px;
+    font-size: 2rem;
+    line-height: 1;
+    height: 40px;
 }
 
 .nav-btn.prev {
@@ -236,7 +236,7 @@ body {
 /* Dots */
 .dots-container {
     position: absolute;
-    bottom: 30px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -245,17 +245,18 @@ body {
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.4);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .dot.active {
-    background: white;
-    transform: scale(1.3);
+    background: var(--green-main);
+    transform: scale(1.4);
+    border: 1px solid var(--green-dark);
 }
 
 .banner-button {
@@ -337,26 +338,19 @@ body {
 
 .slide-title {
     font-size: 5rem;
-    /* Molto grande su Desktop */
     font-weight: 800;
     text-transform: uppercase;
     margin-bottom: 1rem;
     color: var(--bg-light);
     line-height: 1.1;
-    letter-spacing: -2px;
-    /* Effetto moderno compatto */
     text-shadow: 2px 4px 10px rgba(31, 61, 43, 0.4);
-    /* Ombra con il tuo green-text */
 }
 
 .slide-subtitle {
     font-size: 2.5rem;
     font-weight: 600;
     margin-bottom: 2.5rem;
-    color: var(--green-text);
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    color: var(--green-main);
 }
 
 /* PRODUCT CARDS */
@@ -840,7 +834,7 @@ body {
 
 
 
-@media (max-width: 991.98px) {
+@media (max-width: 1024px) {
     body {
         padding-top: 130px;
     }
@@ -902,7 +896,7 @@ body {
     .nav-btn {
         width: 45px;
         height: 45px;
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
 
     .nav-btn.prev {
@@ -930,14 +924,14 @@ body {
     }
 
     .slide-title {
-        font-size: 2.2rem;
+        font-size: 2.4rem;
         letter-spacing: 0;
     }
 
     .slide-subtitle {
+        font-size: 2rem;
         padding: 0 15px;
     }
-
 
     .dots-container {
         bottom: 15px;
@@ -948,8 +942,141 @@ body {
     .nav-btn {
         display: none;
     }
+
+    .slide-title {
+        font-size: 2rem;
+    }
+
+    .slide-subtitle {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
 }
 
+
+/* 📱 MOBILE ≤ 425px */
+@media (max-width: 425px) {
+    .slider-container {
+        height: calc(55vh - 72px);
+    }
+
+    .nav-btn {
+        display: none;
+    }
+
+    .slide-title {
+        font-size: 2rem;
+    }
+
+    .slide-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .dots-container {
+        bottom: 12px;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+
+    body {
+        padding-top: 130px;
+    }
+
+    .custom-navbar .container {
+        padding: 10px 15px !important;
+    }
+
+    .header-cart-link {
+        margin-left: 0;
+        /* evita che si sposti lontano */
+    }
+
+    .header-cart-link .badge {
+        top: -6px;
+        right: -6px;
+        /* leggero aggiustamento se necessario su mobile */
+    }
+
+    .header-search-form {
+        max-width: 100%;
+        width: 100%;
+        margin: 10px 0 5px 0 !important;
+    }
+
+    .navbar-collapse {
+        background-color: var(--bg-light);
+        padding: 16px;
+        border-radius: 12px;
+        margin-top: 12px;
+    }
+
+    .cart-product-img {
+        max-height: 70px;
+    }
+
+    .quantity-control {
+        margin-top: 6px;
+    }
+
+    .products-filter {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .products-filter h5 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .products-filter select {
+        max-width: 100%;
+    }
+
+    .slide-title {
+        font-size: 3.5rem;
+    }
+
+    .nav-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 2rem;
+    }
+
+    .nav-btn.prev {
+        left: 15px;
+    }
+
+    .nav-btn.next {
+        right: 15px;
+    }
+
+    .slider-container {
+        height: calc(60vh - 72px);
+    }
+
+    .slide-title {
+        font-size: 3rem;
+    }
+
+    .slide-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .nav-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .nav-btn.prev {
+        left: 14px;
+    }
+
+    .nav-btn.next {
+        right: 14px;
+    }
+}
 
 /* FIX FINALI */
 html,
