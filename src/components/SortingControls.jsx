@@ -8,6 +8,7 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 	const [sortBy, setSortBy] = useState("recent");
 	const [order, setOrder] = useState("asc");
 	const [category, setCategory] = useState("");
+	const [promo, setPromo] = useState("n");
 
 	const { search } = useSearch();
 
@@ -19,12 +20,27 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 	}, []);
 
 	useEffect(() => {
-		setSearchParams({ q: search, sortBy, order, category });
-	}, [search, sortBy, order, category]);
+		setSearchParams({ q: search, sortBy, order, category, promo });
+	}, [search, sortBy, order, category, promo]);
 
 	return (
 		<div className="products-filter">
 			{/* <h5 className="mt-2 me-1">Ordina per: </h5> */}
+
+			<button
+				type="button"
+				className={`btn ${promo === "n" ? "btn-danger" : "btn-outline-danger"}`}
+				onClick={() => {
+					console.log(searchParams);
+					if (promo === "n") {
+						setPromo("y");
+					} else {
+						setPromo("n");
+					}
+				}}
+			>
+				{"IN OFFERTA"}
+			</button>
 
 			<select
 				className="form-select"
