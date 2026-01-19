@@ -13,7 +13,6 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 		searchParams?.get?.("category") || "",
 	);
 	const [promo, setPromo] = useState(searchParams?.get?.("promo") || "n");
-
 	const { search, setSearch } = useSearch();
 
 	useEffect(() => {
@@ -46,6 +45,7 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 			>
 				{"IN OFFERTA"}
 			</button>
+
 
 			<select
 				id="sort-by"
