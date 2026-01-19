@@ -1,7 +1,8 @@
 import { useCart } from "../context/CartContext";
 
 export default function CartItems({ item }) {
-	const { removeFromCart, updateQuantity } = useCart();
+	const { removeFromCart, updateQuantity, } = useCart();
+
 
 	function capitalize(str) {
 		if (!str) return "";
@@ -38,6 +39,7 @@ export default function CartItems({ item }) {
 						type="button"
 						className="qty-btn btn btn-outline-secondary"
 						onClick={() => updateQuantity(item.id, 1)}
+						disabled={item.quantity >= item.available_quantity}
 					>
 						+
 					</button>
