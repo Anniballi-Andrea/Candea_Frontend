@@ -83,6 +83,7 @@ export default function CartSummary({ cart, total, onCheckout }) {
 			<div className="d-flex align-items-center mb-3 gap-2">
 				<div className="flex-grow-1">
 					<input
+						id="discount-code"
 						type="text"
 						value={tempCode}
 						onChange={(e) => setTempCode(e.target.value)}

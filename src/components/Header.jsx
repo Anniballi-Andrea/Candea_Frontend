@@ -61,6 +61,7 @@ export default function Header() {
 
                         <li className="nav-item">
                             <select
+                                id="select-category"
                                 className="nav-select"
                                 value={selected}
                                 onChange={(e) => {
