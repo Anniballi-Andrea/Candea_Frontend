@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
 export default function CheckoutForm() {
-	const { cart, clearCart, discountCode, orderData, setOrderData } = useCart();
+	const { cart, clearCart, discountCode, orderData, setOrderData, } = useCart();
 
 	const initialCheckoutForm = {
 		first_name: "",
@@ -31,10 +31,10 @@ export default function CheckoutForm() {
 			[id]: value,
 		});
 	};
-
+	const [showOrder, setShowOrder] = useState(false)
 	function handleSubmit(e) {
 		e.preventDefault();
-		console.log("Dati inviati:", checkoutForm);
+		//console.log("Dati inviati:", checkoutForm);
 
 		const products = cart.map((product) => {
 			return {
@@ -52,7 +52,8 @@ export default function CheckoutForm() {
 		axios
 			.post(`http://localhost:3000/api/orders`, data)
 			.then((res) => {
-				setOrderData({ ...orderData, ...data, cart });
+				setShowOrder(true)
+				setOrderData({ ...orderData, ...data, cart, showOrder });
 				setCheckoutForm(initialCheckoutForm);
 				clearCart();
 				navigate("/summary_order");
