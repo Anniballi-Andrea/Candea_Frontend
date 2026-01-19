@@ -110,7 +110,8 @@ export default function Header() {
 
                         <li className="nav-item">
                             <Link className="nav-link header-cart-link" to="/cart">
-                                <i className="bi bi-bag"></i>
+                                <i className={`bi ${uniqueItemsCount > 0 ? "bi-bag-fill" : "bi-bag"}`}></i>
+
                                 {uniqueItemsCount > 0 && (
                                     <span className="badge rounded-pill">
                                         {uniqueItemsCount}
