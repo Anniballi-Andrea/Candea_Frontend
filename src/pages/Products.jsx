@@ -22,7 +22,7 @@ export default function Products() {
 	}, [searchParams]);
 
 	return (
-		<div className="container p-5 text-center">
+		<div className="container p-5">
 			{/* <h1>Lista prodotti</h1> */}
 
 			<SortingControls

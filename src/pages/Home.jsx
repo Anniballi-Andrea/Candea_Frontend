@@ -22,14 +22,18 @@ export default function Home() {
 	return (
 		<>
 			<Bunner />
-			<ProductShowcase
-				products={bestSellers.slice(0, 4)}
-				title={"Più venduti"}
-			/>
-			<ProductShowcase
-				products={products.slice(0, 4)}
-				title={"Ultimi arrivi"}
-			/>
+			<div className="container">
+
+				<ProductShowcase
+					products={bestSellers.slice(0, 4)}
+					title={"Più venduti"}
+				/>
+				
+				<ProductShowcase
+					products={products.slice(0, 4)}
+					title={"Ultimi arrivi"}
+				/>
+			</div>
 		</>
 	);
 }
