@@ -17,7 +17,7 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 	const { search, setSearch } = useSearch();
 
 	useEffect(() => {
-		setSearch(searchParams?.get?.("q"));
+		setSearch(searchParams?.get?.("q") || "");
 		axios
 			.get("http://localhost:3000/api/categories")
 			.then((res) => setCategories(res.data))
