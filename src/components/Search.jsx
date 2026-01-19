@@ -16,6 +16,7 @@ export default function Search() {
 	return (
 		<form className="d-flex mx-auto header-search-form" onSubmit={handleSubmit}>
 			<input
+				id="search"
 				className="form-control"
 				type="search"
 				placeholder="Cerca candele..."

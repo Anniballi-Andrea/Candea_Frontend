@@ -48,6 +48,7 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 			</button>
 
 			<select
+				id="sort-by"
 				className="form-select"
 				value={sortBy}
 				onChange={(e) => {

@@ -6,6 +6,10 @@ import { useCart } from "../context/CartContext";
 export default function CheckoutForm() {
 	const { cart, clearCart, discountCode, orderData, setOrderData, } = useCart();
 
+	const [cardNumber, setCardNumber] = useState("")
+	const [validThhru, setValidThhru] = useState("")
+	const [cvv, setCvv] = useState("")
+
 	const initialCheckoutForm = {
 		first_name: "",
 		last_name: "",
@@ -206,6 +210,62 @@ export default function CheckoutForm() {
 								onChange={handleChange}
 								required
 							/>
+						</div>
+						<div className="col-md-6">
+							<label htmlFor="card-number" className="custom-label">
+								Numero carta*
+							</label>
+							<input
+								type="text"
+								id="card-number"
+								className="custom-input"
+								placeholder="4023 **** **** ****"
+								value={cardNumber}
+								onChange={(e) => {
+									if (e.target.value.length <= 16) {
+										setCardNumber(e.target.value)
+									}
+
+								}}
+							/>
+
+						</div>
+						<div className="col-md-4">
+							<label htmlFor="valid-thhru" className="custom-label">
+								Scadenza carta*
+							</label>
+							<input
+								type="text"
+								id="valid-thhru"
+								className="custom-input"
+								placeholder="00/00"
+								value={validThhru}
+								onChange={(e) => {
+									if (e.target.value.length <= 5) {
+										setValidThhru(e.target.value)
+									}
+								}}
+							/>
+
+						</div>
+						<div className="col-md-2">
+							<label htmlFor="cvv" className="custom-label">
+								CVV*
+							</label>
+							<input
+								type="text"
+								id="cvv"
+								className="custom-input"
+								placeholder="***"
+								value={cvv}
+								onChange={(e) => {
+									if (e.target.value.length <= 3) {
+										setCvv(e.target.value)
+									}
+								}}
+
+							/>
+
 						</div>
 					</div>
 					<div className="custom-label mt-2">* DATI OBBLIGATORI</div>
