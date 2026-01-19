@@ -2,38 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const slides = [
-    {
-        id: 1,
-        title: "Respiro d'inverno",
-        subtitle: "Candele artigianali con note di cannella e pino.",
-        image: "/candelaInvernale.png",
-        categoria: "inverno"
-    },
-    {
-        id: 2,
-        title: "soffio di primavera",
-        subtitle: "Note floreali e freschezza per rinascere con la natura.",
-        image: "/candelaPrimavera.png",
-        categoria: "primavera"
-    },
-    {
-        id: 3,
-        title: "Profumo di vacanza",
-        subtitle: "Agrumi e brezza marina per le tue serate all'aperto.",
-        image: "/candelaEstate.png",
-        categoria: "estate"
-    },
-    {
-        id: 4,
-        title: "Incanto d'Autunno",
-        subtitle: "Profumi di zucca, spezie e foglie cadenti.",
-        image: "/candelaAutunno.png",
-        categoria: "autunno"
-    },
+    { id: 1, title: "Respiro d'inverno", subtitle: "Candele artigianali con note di cannella e pino.", image: "/candelaInvernale.png", categoria: "inverno" },
+    { id: 2, title: "soffio di primavera", subtitle: "Note floreali e freschezza per rinascere con la natura.", image: "/candelaPrimavera.png", categoria: "primavera" },
+    { id: 3, title: "Profumo di vacanza", subtitle: "Agrumi e brezza marina per le tue serate all'aperto.", image: "/candelaEstate.png", categoria: "estate" },
+    { id: 4, title: "Incanto d'Autunno", subtitle: "Profumi di zucca, spezie e foglie cadenti.", image: "/candelaAutunno.png", categoria: "autunno" },
 ];
 
 export default function InfiniteSlider() {
-    // Creazione del nastro infinito: [Autunno, Inverno, Primavera, Estate, Autunno, Inverno]
     const extendedSlides = [
         slides[slides.length - 1],
         ...slides,
@@ -43,7 +18,6 @@ export default function InfiniteSlider() {
     const [currentIndex, setCurrentIndex] = useState(1);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const navigate = useNavigate();
-
 
     const handleNext = () => {
         if (isTransitioning) return;
@@ -59,7 +33,6 @@ export default function InfiniteSlider() {
 
     const handleTransitionEnd = () => {
         setIsTransitioning(false);
-        // Reset della posizione senza animazione per l'effetto loop
         if (currentIndex === extendedSlides.length - 1) {
             setCurrentIndex(1);
         } else if (currentIndex === 0) {
@@ -70,12 +43,10 @@ export default function InfiniteSlider() {
     return (
         <section className="slider-container">
             <div
-                className="slider-track"
+                className={`slider-track ${!isTransitioning ? "no-transition" : ""}`}
                 onTransitionEnd={handleTransitionEnd}
-                style={{
-                    transform: `translateX(-${currentIndex * 100}%)`,
-                    transition: isTransitioning ? "transform 0.8s cubic-bezier(0.65, 0, 0.35, 1)" : "none"
-                }}
+                /* Passiamo l'indice come variabile CSS custom */
+                style={{ "--current-slide": currentIndex }}
             >
                 {extendedSlides.map((slide, index) => (
                     <div className="slide" key={`${slide.id}-${index}`}>
