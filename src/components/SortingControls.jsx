@@ -5,14 +5,19 @@ import { useSearch } from "../context/SearchContext";
 export default function SortingControls({ searchParams, setSearchParams }) {
 	const [categories, setCategories] = useState([]);
 
-	const [sortBy, setSortBy] = useState("recent");
-	const [order, setOrder] = useState("asc");
-	const [category, setCategory] = useState("");
-	const [promo, setPromo] = useState("n");
+	const [sortBy, setSortBy] = useState(
+		searchParams?.get?.("sortBy") || "recent",
+	);
+	const [order, setOrder] = useState(searchParams?.get?.("order") || "asc");
+	const [category, setCategory] = useState(
+		searchParams?.get?.("category") || "",
+	);
+	const [promo, setPromo] = useState(searchParams?.get?.("promo") || "n");
 
-	const { search } = useSearch();
+	const { search, setSearch } = useSearch();
 
 	useEffect(() => {
+		setSearch(searchParams?.get?.("q"));
 		axios
 			.get("http://localhost:3000/api/categories")
 			.then((res) => setCategories(res.data))
