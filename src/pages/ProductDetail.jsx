@@ -127,10 +127,7 @@ export default function ProductDetail() {
 							>
 								-
 							</button>
-							<span
-								className="px-4 border-start border-end fw-bold"
-								style={{ minWidth: "60px", textAlign: "center" }}
-							>
+							<span className="qty-display fw-bold border-start border-end">
 								{quantity}
 							</span>
 							<button

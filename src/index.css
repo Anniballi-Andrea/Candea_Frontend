@@ -648,6 +648,24 @@ body {
     background-color: #245732;
 }
 
+.qty-display {
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #fff;
+}
+
+.object-fit-contain {
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.object-fit-contain:hover {
+    transform: scale(1.05);
+}
+
 /* FOOTER */
 .footer {
     background-color: var(--green-dark);
