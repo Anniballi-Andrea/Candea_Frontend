@@ -89,21 +89,23 @@ export default function ProductDetail() {
                     <h1 className="display-5 fw-bold">{capitalize(product.name)}</h1>
 
                     {/* Dati recuperati: Dimensioni */}
-                    <p className="text-muted fs-5">{product.dimensions}</p>
+
 
                     <p className="my-4 text-secondary">{product.description}</p>
 
                     {/* Dati recuperati: Sentori, Durata, Colore */}
                     <div className="product-info-list mb-4">
                         <p className="mb-1 text-secondary">
-                            <strong>Sentori di:</strong> {product.scent}
+                            <span className="fw-bold">Sentori di:</span> {product.scent}
                         </p>
                         <p className="mb-1 text-secondary">
-                            <strong>Durata:</strong> {product.burn_time}
+                            <span className="fw-bold">Durata:</span> {product.burn_time}
                         </p>
                         <p className="mb-1 text-secondary">
-                            <strong>Colore:</strong> {product.color}
+                            <span className="fw-bold">Colore:</span> {product.color}
                         </p>
+                        <p className="mb-1 text-secondary">
+                            <span className="fw-bold">Dimensioni: </span>{product.dimensions}</p>
                     </div>
 
                     <hr />
