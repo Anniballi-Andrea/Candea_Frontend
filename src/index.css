@@ -422,7 +422,7 @@ body {
 .price-wrapper {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: baseline;
     gap: 10px;
 }
 
@@ -812,7 +812,9 @@ body {
 }
 
 
-
+.product-price-init {
+    font-size: 1rem;
+}
 
 
 
