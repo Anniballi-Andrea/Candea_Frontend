@@ -5,7 +5,7 @@ export default function ProductShowcase({ title, products }) {
 		<div className="my-5">
 			<h2 className="fw-bold mb-4">{title}</h2>
 
-			<div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+			<div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 g-4">
 				{products.length > 0 ? (
 					products.map((prod) => (
 						<SingleCardProduct key={prod.id} product={prod} />
