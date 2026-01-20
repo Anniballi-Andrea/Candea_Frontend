@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 
 export default function ProductDetail() {
     const { slug } = useParams();
@@ -10,6 +11,7 @@ export default function ProductDetail() {
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [showSuccess, setShowSuccess] = useState(false);
+    const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
     useEffect(() => {
         axios
@@ -27,6 +29,13 @@ export default function ProductDetail() {
             })
             .catch((err) => console.error("Errore:", err));
     }, [slug, cart]);
+
+    const isLiked = (id) => {
+        for (let i = 0; i < wishlist.length; i++) {
+            if (wishlist[i].id === id) return true;
+        }
+        return false;
+    };
 
     // --- LOGICA RIGIDA DI CALCOLO ---
     const alreadyInCart = product
@@ -76,6 +85,22 @@ export default function ProductDetail() {
                 {/* COLONNA IMMAGINE */}
                 <div className="col-md-6">
                     <div className="ratio ratio-1x1 bg-white mb-3 border shadow-sm rounded">
+
+                        <div className="">
+                            <i
+                                className={`heart-btn bi ${isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"
+                                    }`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if (isLiked(product.id)) {
+                                        removeFromWishlist(product.id);
+                                    } else {
+                                        addToWishlist(product);
+                                    }
+                                }}
+                            ></i>
+                        </div>
+
                         <img
                             src={`http://localhost:3000/${product.img}`}
                             alt={product.name}
@@ -137,7 +162,7 @@ export default function ProductDetail() {
                             >
                                 -
                             </button>
-                            <span className="qty-display fw-bold ">
+                            <span className="px-3 fw-bold">
                                 {quantity}
                             </span>
                             <button

@@ -403,7 +403,8 @@ body {
 
 /* HEART ICON */
 .product-bottom>.bi-suit-heart,
-.product-bottom>.bi-suit-heart-fill {
+.product-bottom>.bi-suit-heart-fill,
+.heart-btn {
     padding: 2px 4px;
     border-radius: 6px;
     background-color: var(--bg-light);
@@ -416,6 +417,16 @@ body {
 .product-bottom>.bi-suit-heart:hover,
 .product-bottom>.bi-suit-heart-fill:hover {
     transform: scale(1.2);
+}
+
+.heart-btn {
+    position: relative;
+    z-index: 2;
+    background-color: #A9D6AB;
+    padding: 4px 6px;
+    font-size: 18px;
+    top: 8px;
+    left: 5px;
 }
 
 /* PRICE */
@@ -959,5 +970,10 @@ body {
 @media (max-width: 767.98px) {
     .nav-btn {
         display: none;
+    }
+
+    .heart-btn {
+        padding: 6px 8px;
+        font-size: 33px;
     }
 }
