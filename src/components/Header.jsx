@@ -81,13 +81,13 @@ export default function Header() {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">
+                            <Link className="nav-link" to="/ChiSiamo">
                                 Chi siamo
                             </Link>
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">
+                            <Link className="nav-link" to="/FAQ">
                                 FAQ
                             </Link>
                         </li>

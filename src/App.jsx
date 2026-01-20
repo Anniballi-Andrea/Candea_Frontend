@@ -8,6 +8,8 @@ import DefaultLayout from "./layout/DefaultLayout";
 
 import Cart from "./pages/Cart";
 import CategoryProduct from "./pages/CategoryProduct";
+import ChiSiamo from "./pages/ChiSiamo";
+import Faq from "./pages/Faq";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProductDetail from "./pages/ProductDetail";
@@ -36,6 +38,8 @@ function App() {
 								<Route path="/wishlist" element={<Wish />} />
 								<Route path="/summary_order" element={<SummaryOrder />} />
 								<Route path="*" element={<NotFound />} />
+								<Route path="/ChiSiamo" element={<ChiSiamo />} />
+								<Route path="/FAQ" element={<Faq />} />
 							</Route>
 						</Routes>
 					</BrowserRouter>
