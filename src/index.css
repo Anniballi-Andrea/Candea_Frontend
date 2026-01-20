@@ -128,8 +128,8 @@ body {
 
 .header-cart-link .badge {
     position: absolute;
-    top: -6px;
-    right: -10px;
+    top: 3px;
+    right: -4px;
     background-color: var(--green-dark) !important;
     font-size: 0.6rem;
     padding: 2px 6px;
