@@ -29,21 +29,12 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 
 	return (
 		<div className="products-filter">
-			{/* <h5 className="mt-2 me-1">Ordina per: </h5> */}
-
 			<button
 				type="button"
-				className={`btn ${promo === "n" ? "btn-danger" : "btn-outline-danger"}`}
-				onClick={() => {
-					console.log(searchParams);
-					if (promo === "n") {
-						setPromo("y");
-					} else {
-						setPromo("n");
-					}
-				}}
+				className={`btn ${promo === "y" ? "active" : ""}`}
+				onClick={() => setPromo(promo === "n" ? "y" : "n")}
 			>
-				{"IN OFFERTA"}
+				IN OFFERTA
 			</button>
 
 
@@ -95,71 +86,6 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 					<i className="bi bi-sort-up"></i>
 				)}
 			</button>
-
-			{/* <div className="btn-group me-1">
-				<button
-					type="button"
-					className={`btn btn-primary ${sortBy === "price" ? "active" : ""}`}
-					onClick={() => {
-						console.log(searchParams);
-
-						setSortBy("price");
-					}}
-				>
-					Prezzo
-				</button>
-
-				<button
-					type="button"
-					className={`btn btn-primary ${sortBy === "name" ? "active" : ""}`}
-					onClick={() => {
-						console.log(searchParams);
-
-						setSortBy("name");
-					}}
-				>
-					Alfabetica
-				</button>
-
-				<button
-					type="button"
-					className={`btn btn-primary ${sortBy === "recent" ? "active" : ""}`}
-					onClick={() => {
-						console.log(searchParams);
-						setSortBy("recent");
-					}}
-				>
-					Recenti
-				</button>
-			</div>
-
-			<div className="btn-group me-1">
-				<button
-					type="button"
-					className={`btn btn-primary ${order === "asc" ? "active" : ""}`}
-					onClick={() => {
-						setOrder("asc");
-					}}
-				>
-					Asc
-				</button>
-
-				<button
-					type="button"
-					className={`btn btn-primary ${order === "desc" ? "active" : ""}`}
-					onClick={() => {
-						console.log(searchParams);
-
-						setOrder("desc");
-					}}
-				>
-					Desc
-				</button>
-			</div>
-
-			<button type="submit" className="btn btn-primary">
-				Filtra
-			</button> */}
 		</div>
 	);
 }

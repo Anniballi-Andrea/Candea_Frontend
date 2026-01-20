@@ -128,22 +128,22 @@ export default function ProductDetail() {
                     {/* SELETTORE QUANTITÀ */}
                     <div className="d-flex align-items-center gap-4 my-5">
                         <span className="fw-bold text-uppercase small">Quantità</span>
-                        <div className="d-flex border align-items-center bg-white shadow-sm">
+                        <div className="bottoni_increment_decrement d-flex border align-items-center bg-white shadow-sm">
                             <button
                                 type="button"
                                 onClick={decreaseQty}
-                                className="btn px-3 fw-bold"
+                                className="btn px-8 fw-bold"
                                 disabled={quantity <= 1}
                             >
                                 -
                             </button>
-                            <span className="qty-display fw-bold border-start border-end">
+                            <span className="qty-display fw-bold ">
                                 {quantity}
                             </span>
                             <button
                                 type="button"
                                 onClick={increaseQty}
-                                className="btn px-3 fw-bold"
+                                className="btn px-8 fw-bold"
                                 disabled={quantity >= maxSelectableNow}
                             >
                                 +
