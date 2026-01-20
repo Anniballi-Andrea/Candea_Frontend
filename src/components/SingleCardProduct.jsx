@@ -65,7 +65,7 @@ export default function SingleCardProduct({ product }) {
 							></i>
 
 							{product.initial_price !== product.actual_price ? (
-								<div className="price-wrapper mr-4">
+								<div className="price-wrapper mr-4 ">
 									<div className="product-price-init">
 										€{product.initial_price}
 									</div>
