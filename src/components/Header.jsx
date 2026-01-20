@@ -54,7 +54,7 @@ export default function Header() {
                     <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-3">
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/products_view">
+                            <Link className="nav-link" to="/products">
                                 Prodotti
                             </Link>
                         </li>
@@ -65,7 +65,7 @@ export default function Header() {
                                 className="nav-select"
                                 value={selected}
                                 onChange={(e) => {
-                                    navigate(`/products_view?category=${e.target.value}`);
+                                    navigate(`/products?category=${e.target.value}`);
                                     setSelected("");
                                 }}
                             >
@@ -81,13 +81,13 @@ export default function Header() {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/ChiSiamo">
+                            <Link className="nav-link" to="/about">
                                 Chi siamo
                             </Link>
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/FAQ">
+                            <Link className="nav-link" to="/faq">
                                 FAQ
                             </Link>
                         </li>

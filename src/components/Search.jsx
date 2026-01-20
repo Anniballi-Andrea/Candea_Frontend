@@ -9,7 +9,7 @@ export default function Search() {
 		e.preventDefault();
 		if (!search.trim()) return;
 
-		navigate(`/products_view?q=${encodeURIComponent(search)}`);
+		navigate(`/products?q=${encodeURIComponent(search)}`);
 		// setSearch("");
 	};
 

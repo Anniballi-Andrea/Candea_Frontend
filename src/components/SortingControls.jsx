@@ -28,64 +28,67 @@ export default function SortingControls({ searchParams, setSearchParams }) {
 	}, [search, sortBy, order, category, promo]);
 
 	return (
-		<div className="products-filter">
-			<button
-				type="button"
-				className={`btn ${promo === "y" ? "active" : ""}`}
-				onClick={() => setPromo(promo === "n" ? "y" : "n")}
-			>
-				IN OFFERTA
-			</button>
+		<div className="products-filter flex-wrap">
+			<div className="filter-ctrl">
+				<button
+					type="button"
+					className={`btn ${promo === "y" ? "active" : ""}`}
+					onClick={() => setPromo(promo === "n" ? "y" : "n")}
+				>
+					<i className="bi bi-tags"></i>{` OFFERTE`}
+				</button>
 
+				<select
+					className="form-select"
+					value={category}
+					onChange={(e) => {
+						setCategory(e.target.value);
+					}}
+				>
+					<option value={""}>TUTTE LE CATEGORIE</option>
+					{categories.map((cat) => {
+						return (
+							<option key={cat.id} value={cat.name}>
+								{cat.name.toUpperCase()}
+							</option>
+						);
+					})}
+				</select>
+			</div>
 
-			<select
-				id="sort-by"
-				className="form-select"
-				value={sortBy}
-				onChange={(e) => {
-					setSortBy(e.target.value);
-				}}
-			>
-				<option value="recent">Recenti</option>
-				<option value="price">Prezzo</option>
-				<option value="name">Alfabetica</option>
-			</select>
+			<div className="filter-ctrl">
+				<select
+					id="sort-by"
+					className="form-select"
+					value={sortBy}
+					onChange={(e) => {
+						setSortBy(e.target.value);
+					}}
+				>
+					<option value="recent">RECENTI</option>
+					<option value="price">PREZZO</option>
+					<option value="name">A - Z</option>
+				</select>
 
-			<select
-				className="form-select"
-				value={category}
-				onChange={(e) => {
-					setCategory(e.target.value);
-				}}
-			>
-				<option value={""}>Tutte le categorie</option>
-				{categories.map((cat) => {
-					return (
-						<option key={cat.id} value={cat.name}>
-							{cat.name}
-						</option>
-					);
-				})}
-			</select>
-
-			<button
-				type="button"
-				className="btn btn-primary"
-				onClick={() => {
-					console.log(searchParams);
-					if (order === "desc") {
-						setOrder("asc");
-					} else {
-						setOrder("desc");
-					}
-				}}
-			>
-				{order === "desc" ? (
-					<i className="bi bi-sort-down"></i>
-				) : (
-					<i className="bi bi-sort-up"></i>
-				)}
-			</button>
+				<button
+					type="button"
+					className="btn btn-primary"
+					onClick={() => {
+						console.log(searchParams);
+						if (order === "desc") {
+							setOrder("asc");
+						} else {
+							setOrder("desc");
+						}
+					}}
+				>
+					{order === "desc" ? (
+						<i className="bi bi-sort-down"></i>
+					) : (
+						<i className="bi bi-sort-up"></i>
+					)}
+				</button>
+			</div>
 		</div>
 	);
 }

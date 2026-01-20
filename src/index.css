@@ -651,16 +651,24 @@ body {
 /* ===== PRODUCTS FILTER ===== */
 
 .products-filter {
-    padding: 14px 18px;
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
     margin-top: 20px;
+}
+
+.filter-ctrl {
+    padding: 14px 0;
+    display: flex;
+    justify-content: end;
+}
+
+.filter-ctrl>* {
+    margin-left: 8px;
 }
 
 /* SELECT */
 .products-filter select {
-    max-width: 200px;
+    max-width: 210px;
     background-color: var(--green-main);
     box-shadow: 0 6px 16px rgba(46, 107, 63, 0.12);
     color: var(--green-text);
@@ -675,6 +683,7 @@ body {
     border: none;
     font-weight: 500;
     transition: all 0.25s ease;
+    min-width: fit-content;
 }
 
 .products-filter .btn:hover {
