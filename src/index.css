@@ -433,6 +433,10 @@ body {
     white-space: nowrap;
 }
 
+.product-price-init {
+    font-size: 1rem;
+}
+
 .product-price {
     color: var(--green-text);
 }
@@ -809,11 +813,6 @@ body {
     color: var(--green-dark);
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(46, 107, 63, 0.2);
-}
-
-
-.product-price-init {
-    font-size: 1rem;
 }
 
 
