@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import ScrollUp from "../components/ScrollUp";
 
 export default function DefaultLayout() {
 	return (
@@ -10,6 +11,7 @@ export default function DefaultLayout() {
 				<Outlet />
 			</main>
 			<Footer />
+			<ScrollUp />
 		</div>
 	);
 }

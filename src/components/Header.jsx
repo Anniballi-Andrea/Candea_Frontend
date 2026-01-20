@@ -65,7 +65,7 @@ export default function Header() {
                                 className="nav-select"
                                 value={selected}
                                 onChange={(e) => {
-                                    navigate(`/products?category=${e.target.value}`);
+                                    navigate(`/products_view?category=${e.target.value}`);
                                     setSelected("");
                                 }}
                             >
