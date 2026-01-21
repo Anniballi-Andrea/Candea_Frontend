@@ -10,6 +10,8 @@ export default function CheckoutForm() {
 	const [validThhru, setValidThhru] = useState("")
 	const [cvv, setCvv] = useState("")
 	const [errMessage, setErrMeassage] = useState("")
+	const [termsCheck, setTermsCheck] = useState(false)
+	const [termsMsg, setTermsMsg] = useState("")
 
 	const initialCheckoutForm = {
 		first_name: "",
@@ -40,6 +42,8 @@ export default function CheckoutForm() {
 	function handleSubmit(e) {
 		e.preventDefault();
 		//console.log("Dati inviati:", checkoutForm);
+
+		if (!termsCheck) { setTermsMsg("Accetta per proseguire"); return }
 
 		let date = validThhru
 		let month = date.slice(0, 2)
@@ -293,6 +297,19 @@ export default function CheckoutForm() {
 							/>
 
 						</div>
+					</div>
+					<div className="form-check my-3">
+						<input
+							className="form-check-input"
+							type="checkbox"
+							id="checkDefault"
+							checked={termsCheck}
+							onChange={() => { termsCheck ? setTermsCheck(false) : setTermsCheck(true) }}
+						/>
+						<label className="form-check-label" htmlFor="checkDefault">
+							Accetto termini e condizioni *
+							<span className="text-danger mx-2">{termsMsg}</span>
+						</label>
 					</div>
 					<div className="custom-label mt-2">* DATI OBBLIGATORI</div>
 
