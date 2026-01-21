@@ -33,6 +33,19 @@ export default function SingleCardProduct({ product }) {
 			<Link to={`/products/${product.slug}`} className="product-link">
 				<div className="product-card">
 					<div className="product-image-wrapper">
+						<i
+							className={`position-hrt bi ${isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"
+								}`}
+							onClick={(e) => {
+								e.preventDefault();
+								if (isLiked(product.id)) {
+									removeFromWishlist(product.id);
+								} else {
+									addToWishlist(product);
+								}
+							}}
+						></i>
+
 						<img
 							src={`http://localhost:3000/${product.img}`}
 							alt={product.name}
@@ -51,18 +64,6 @@ export default function SingleCardProduct({ product }) {
 						</div>
 
 						<div className="product-bottom">
-							<i
-								className={`bi ${isLiked(product.id) ? "bi-suit-heart-fill" : "bi-suit-heart"
-									}`}
-								onClick={(e) => {
-									e.preventDefault();
-									if (isLiked(product.id)) {
-										removeFromWishlist(product.id);
-									} else {
-										addToWishlist(product);
-									}
-								}}
-							></i>
 
 							{product.initial_price !== product.actual_price ? (
 								<div className="price-wrapper mr-4 ">
