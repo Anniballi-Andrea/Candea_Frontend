@@ -9,6 +9,7 @@ export default function CheckoutForm() {
 	const [cardNumber, setCardNumber] = useState("")
 	const [validThhru, setValidThhru] = useState("")
 	const [cvv, setCvv] = useState("")
+	const [errMessage, setErrMeassage] = useState("")
 
 	const initialCheckoutForm = {
 		first_name: "",
@@ -40,6 +41,18 @@ export default function CheckoutForm() {
 		e.preventDefault();
 		//console.log("Dati inviati:", checkoutForm);
 
+		let date = validThhru
+		let month = date.slice(0, 2)
+		let year = date.slice(3)
+		let now = Date.now()
+		let exp = Date.UTC(`20${year}`, month - 1)
+
+		if (date.length > 5 || month < 1 || month > 12 || now > exp) {
+			setValidThhru("")
+			setErrMeassage("Inserire una data valida")
+			return
+		}
+
 		const products = cart.map((product) => {
 			return {
 				id: product.id,
@@ -65,6 +78,28 @@ export default function CheckoutForm() {
 			.catch((err) => {
 				console.log(err);
 			});
+	}
+
+	const validateCardNum = (e) => {
+		if (e.target.value.length <= 16 && Number.isInteger(Number(e.target.value))) {
+			setCardNumber(e.target.value)
+		}
+
+	}
+
+	const valiDate = (e) => {
+		let date = e.target.value
+		if (date.length === 3 && validThhru.length < e.target.value.length) {
+			setValidThhru(validThhru + "/")
+		} else if (date.length <= 5) {
+			setValidThhru(e.target.value)
+		}
+	}
+
+	const validateCvv = (e) => {
+		if (e.target.value.length <= 3 && Number.isInteger(Number(e.target.value))) {
+			setCvv(e.target.value)
+		}
 	}
 
 	return (
@@ -213,7 +248,7 @@ export default function CheckoutForm() {
 						</div>
 						<div className="col-md-6">
 							<label htmlFor="card-number" className="custom-label">
-								Numero carta*
+								Numero carta *
 							</label>
 							<input
 								type="text"
@@ -221,36 +256,31 @@ export default function CheckoutForm() {
 								className="custom-input"
 								placeholder="4023 **** **** ****"
 								value={cardNumber}
-								onChange={(e) => {
-									if (e.target.value.length <= 16) {
-										setCardNumber(e.target.value)
-									}
-
-								}}
+								onChange={validateCardNum}
+								required
 							/>
 
 						</div>
 						<div className="col-md-4">
 							<label htmlFor="valid-thhru" className="custom-label">
-								Scadenza carta*
+								Scadenza carta *
 							</label>
 							<input
 								type="text"
 								id="valid-thhru"
 								className="custom-input"
-								placeholder="00/00"
+								placeholder="MM/AA"
 								value={validThhru}
-								onChange={(e) => {
-									if (e.target.value.length <= 5) {
-										setValidThhru(e.target.value)
-									}
-								}}
+								onChange={valiDate}
+								required
 							/>
-
+							<div>
+								<span className="text-danger">{errMessage}</span>
+							</div>
 						</div>
 						<div className="col-md-2">
 							<label htmlFor="cvv" className="custom-label">
-								CVV*
+								CVV *
 							</label>
 							<input
 								type="text"
@@ -258,12 +288,8 @@ export default function CheckoutForm() {
 								className="custom-input"
 								placeholder="***"
 								value={cvv}
-								onChange={(e) => {
-									if (e.target.value.length <= 3) {
-										setCvv(e.target.value)
-									}
-								}}
-
+								onChange={validateCvv}
+								required
 							/>
 
 						</div>
