@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import CartItems from "../components/CartItems";
 import CartSummary from "../components/CartSummary";
@@ -8,12 +8,18 @@ import { useCart } from "../context/CartContext";
 export default function Cart() {
 	const { cart, clearCart } = useCart();
 	const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
+	const checkoutRef = useRef(null)
+
 
 	// Calcolo totale generale per passarlo al Riepilogo
 	const total = cart.reduce(
 		(acc, item) => acc + Number(item.actual_price) * item.quantity,
 		0,
 	);
+
+	useEffect(() => {
+		checkoutRef.current.scrollIntoView({ behavior: "smooth", block: "end" })
+	}, [isCheckoutVisible])
 
 	return (
 		<div className="container my-5 py-5">
@@ -49,7 +55,9 @@ export default function Cart() {
 							<CartSummary
 								cart={cart}
 								total={total}
-								onCheckout={() => setIsCheckoutVisible(true)}
+								onCheckout={() => {
+									setIsCheckoutVisible(true)
+								}}
 							/>
 						</div>
 					</div>
@@ -57,6 +65,7 @@ export default function Cart() {
 					{/* SEZIONE CHECKOUT */}
 					<div
 						className={`checkout-section-wrapper ${isCheckoutVisible ? "show" : ""} mt-5`}
+						ref={checkoutRef}
 					>
 						{isCheckoutVisible && <CheckoutForm />}
 					</div>
