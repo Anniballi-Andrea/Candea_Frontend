@@ -8,7 +8,7 @@ import { useCart } from "../context/CartContext";
 export default function Cart() {
 	const { cart, clearCart } = useCart();
 	const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
-	const checkoutRef = useRef(null)
+	const checkoutRef = useRef()
 
 
 	// Calcolo totale generale per passarlo al Riepilogo
@@ -18,7 +18,7 @@ export default function Cart() {
 	);
 
 	useEffect(() => {
-		checkoutRef.current.scrollIntoView({ behavior: "smooth", block: "end" })
+		if (checkoutRef) checkoutRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
 	}, [isCheckoutVisible])
 
 	return (
